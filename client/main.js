@@ -1,3 +1,9 @@
-import '../imports/ui/index.js';
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Mongo } from 'meteor/mongo';
+import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
 
-//This is a teset comment
+import './index.html';
+import './login.html';
+import '../lib/routing.js';
