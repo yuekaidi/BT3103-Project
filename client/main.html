@@ -1,3 +1,28 @@
 <head>
-  <title>BT3103 Project</title>
+  <title>BT3103</title>
 </head>
+<body>
+</body>
+
+<template name="main">
+    <h1>BT3103</h1>
+    {{> navigation}}
+    {{> yield}}
+    <hr />
+    <p>BT3103 Project 2016, Copyright  &copy; TeamAwesome</p>
+</template>
+
+<template name="home">
+    <p>This is the content of home page</p>
+</template>
+
+<template name="navigation">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/Order">Order</a></li>
+        <li><a href="/Menu">Menu</a></li>
+    </ul>
+</template>
