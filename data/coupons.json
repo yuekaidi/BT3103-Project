@@ -1,0 +1,16 @@
+{"coupons":[
+    {
+        "coupon_id":1001,
+        "coupon_name":"10% Discount Coupon",
+        "coupon_category":"Big Group Coupon",
+        "issued_date": "20-Feb-2017",
+        "expired_date": "20-Mar-2017"
+    },
+    {
+        "coupon_id":1002,
+        "coupon_name":"20% Discount Coupon",
+        "coupon_category":"Big Group Coupon",
+        "issued_date": "25-Feb-2017",
+        "expired_date": "25-Mar-2017"
+    }
+]}

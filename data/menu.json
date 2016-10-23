@@ -1,0 +1,39 @@
+{"menu": {
+    "dishes": [
+        {
+            "dish_id":1001,
+            "dish_name":"Fried Rice",
+            "dish_category":"food"
+            "dish_price":9.50
+        },
+        {
+            "dish_id":1002,
+            "dish_name":"Salmon Spaghetti",
+            "dish_category":"food"
+            "dish_price":12.50
+        },
+        {
+            "dish_id":2001,
+            "dish_name":"Iced Milo",
+            "dish_category":"drink"
+            "dish_price":3.00
+        },
+        {
+            "dish_id":2002,
+            "dish_name":"Water",
+            "dish_category":"drink"
+            "dish_price":1.00
+        }
+        {
+            "dish_id":3001,
+            "dish_name":"Student Lunch Set",
+            "dish_category":"special"
+            "dish_price":10.90
+        },{
+            "dish_id":3002,
+            "dish_name":"Superb Lunch Set",
+            "dish_category":"normal"
+            "dish_price":15.90
+        }
+    ],
+}}

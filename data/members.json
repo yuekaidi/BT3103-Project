@@ -1,0 +1,46 @@
+{"members":[
+    {
+        "member_id":1001,
+        "first_name":"Johannes",
+        "last_name":"Lin",
+        "gender":"Male",
+        "birth_date": "11-Jan-1995",
+        "address": 
+        {
+            "street": "27 Prince George's Park",
+            "city": "Singapore",
+            "country": "Singapore",
+            "postal_code": "118425"
+        },
+        "contact": [
+            {
+                "type": "phone",
+                "record": "83718799"
+            },
+            {
+                "type": "email",
+                "record": "a0119518@u.nus.sg"
+            }
+
+        ],
+        "membership":
+        {
+            "joined_date": "20-Mar-2017",
+            "expired_date": "20-Mar-2018",
+            "membership_level": 3
+        },
+        "order_history": [
+            {
+                "order_id": 12345678
+            },
+            {
+                "order_id": 12345679
+            }
+        ],
+        "coupon_collection": [
+            {
+                "coupon_id": 1001
+            }
+        ],
+    }
+]}

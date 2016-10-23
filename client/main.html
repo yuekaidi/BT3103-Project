@@ -18,11 +18,20 @@
 
 <template name="navigation">
     <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="{{pathFor route='home'}}">Home</a></li>
         <li><a href="/register">Register</a></li>
         <li><a href="/login">Login</a></li>
         <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/Order">Order</a></li>
+        <li><a href="{{pathFor route='order'}}">Order</a></li>
         <li><a href="/Menu">Menu</a></li>
     </ul>
+</template>
+
+<template name="order">
+    {{#each createdOrder}}
+    <ul>
+        <li>{{member_id}}</li>
+    </ul>
+    {{/each}}
+    <p><button class="createOrder">Create a sample order</button></p>
 </template>
