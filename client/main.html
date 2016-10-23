@@ -1,15 +1,20 @@
 <head>
-  <title>BT3103</title>
+    <title>BT3103</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 </body>
 
 <template name="main">
-    <h1>BT3103</h1>
-    {{> navigation}}
-    {{> yield}}
-    <hr />
-    <p>BT3103 Project 2016, Copyright  &copy; TeamAwesome</p>
+  {{> navigation}}
+  {{#if currentUser}}
+  <p>Hi {{currentUser.username}}</p>
+  {{/if}}
+  {{> yield}}
+  <hr />
+  <p>BT3103 Project 2016, Copyright  &copy; TeamAwesome</p>
 </template>
 
 <template name="home">
@@ -17,12 +22,36 @@
 </template>
 
 <template name="navigation">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/Order">Order</a></li>
-        <li><a href="/Menu">Menu</a></li>
-    </ul>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{pathFor route='home'}}">BT3103</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="{{pathFor route='menu'}}">Menu</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{{pathFor route='menu'}}">Menu<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Promotion</a></li>
+              <li><a href="#">New</a></li>
+              <li><a href="#">All</a></li>
+          </ul>
+      </li>
+  </ul>
+  {{#if currentUser}}
+  <ul class="nav navbar-nav">
+    <li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
+    <li><a href="{{pathFor route='order'}}">Orders</a></li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+</ul>
+{{else}}
+<ul class="nav navbar-nav navbar-right">
+  <li><a href="{{pathFor route='register'}}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+  <li><a href="{{pathFor route='login'}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+</ul>
+{{/if}}
+</div>
+</nav>
 </template>
+
