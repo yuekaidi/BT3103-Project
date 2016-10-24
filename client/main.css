@@ -33,8 +33,25 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 		
 	}
 
+
+.radio-group label {
+   overflow: hidden;
+} .radio-group input {
+    /* This is on purpose for accessibility. Using display: hidden is evil.
+    This makes things keyboard friendly right out tha box! */
+   height: 1px;
+   width: 1px;
+   position: absolute;
+   top: -10px;
+} .radio-group .not-active  {
+   color: #3276b1;
+   background-color: #fff;
+}
+
+
+
 body {
-	background: url(http://xinwang.com.sg/wp-content/uploads/2014/07/Xin-Wang-0013.jpg) no-repeat center center fixed;
+	background: url(https://shangzhenlin.files.wordpress.com/2012/08/img_2694.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
