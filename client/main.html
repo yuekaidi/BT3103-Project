@@ -28,10 +28,9 @@
 </template>
 
 <template name="order">
-    {{#each createdOrder}}
+    {{createdOrder}}
     <ul>
         <li>{{member_id}}</li>
     </ul>
-    {{/each}}
     <p><button class="createOrder">Create a sample order</button></p>
 </template>

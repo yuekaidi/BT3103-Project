@@ -4,6 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
 import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
 
+
 import './index.html';
 import './login.html';
 import '../lib/routing.js';
@@ -12,12 +13,16 @@ import '../lib/routing.js';
 //to store the created order
 var createdOrderId = new ReactiveVar(null);
 
+
 Template.order.helpers({
-    'createdOrder': function(){
-    	return Orders.findOne({ _id: createdOrderId });
+    createdOrder(){
+        console.log(createdOrderId.get());
+        console.log(this._id);
+
+    	return Orders.find({ _id: createdOrderId.get()});
     }
 
-})
+});
 
 
 Template.order.events({
