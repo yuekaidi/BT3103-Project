@@ -1,15 +1,16 @@
 
-
 <template name="dashboard">
     <h2>Dashboard</h2>
-    start doign something
 
-    <!-- Manager Dashboard -->
-    <h2>Welcome, {{manager_name}}!</h2>
-
-    <!-- by default, shown current month revenue Components -->
-    
-
+    <!-- Client Dashboard -->
+    <h2>Welcome, 
+    	{{#each loginName}}
+    		{{name}}
+    	{{/each}}
+    </h2>
 
 </template>
 
+<template name="login_name">
+
+</template>

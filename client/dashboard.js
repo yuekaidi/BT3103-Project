@@ -9,9 +9,11 @@ import './dashboard.html';
 Template.dashboard.helpers({
 
 	//functions
-	manager_name() {
-		var name = Member.find(this._id);
-		return name.first_name;
+	loginName() {
+		var obj =  Member.find({_id: Meteor.userId()});
+		console.log("_id: " + Meteor.userId());
+		//console.log(obj);
+		return obj; 
 	}
 
 

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
-import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
+import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './login.html';
 
@@ -11,11 +11,21 @@ Template.register.events({
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
+        var name = $('[name=name]').val();
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
             email: email,
             password: password
         });
+
+        //works --> insert into database
+        Member.insert({
+            _id: Meteor.userId(), //important
+            email: email,
+            password: password,
+            name: name
+        });
+
         Router.go('home');
     }
 });
