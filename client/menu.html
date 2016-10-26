@@ -1,0 +1,70 @@
+<template name="menu">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form role="form">
+                    <h2>Create Menu<small>Embark on possibilities</small></h2>
+                    <hr>
+
+                    <div class="form-group">
+                        <input type="text" name="dishname" class="form-control input-lg" placeholder="Dish Name" tabindex="1">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="double" name="price" class="form-control input-lg" placeholder="Price" tabindex="5">
+                    </div>
+
+                    <!--
+                    <div class="form-group">
+                        <input type="text" name="description" class="form-control input-lg" placeholder="Dish Description" tabindex="1">
+                    </div>
+                    -->
+
+                    <div class="form-group">
+                    	<div class="row">
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Wine"> Wine</div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "MainCourse"> Main Course</div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Juice"> Juice</div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Desert"> Desert</div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Starter"> Starter</div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Coffee"> Coffee </div>
+                    	</div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create Dish" class="btn btn-primary btn-block btn-lg" tabindex="7">
+                    </div>
+
+
+                </form>
+            </div>
+        </div> <!-- End of Creation Form -->
+
+
+        <!-- Display Menu -->
+        <div class="container">
+            {{#each allDishes}}
+                {{>displayDish}}
+            {{/each}}
+        </div>
+
+    </div>
+
+</template>
+
+
+<template name = "displayDish">
+
+    {{name}}
+    {{unit_price}}
+    {{category}}
+    <br>
+
+</template>

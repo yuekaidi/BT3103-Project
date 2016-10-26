@@ -2,16 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
+import { Random } from 'meteor/random';
 import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './login.html';
 
 Template.register.events({
-    'submit form': function(event){
+    'submit form': function(event, template){
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
         var name = $('[name=name]').val();
+        var gender = template.find('input:radio[name=gender]:checked').value;
+
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
             email: email,
@@ -20,13 +23,15 @@ Template.register.events({
 
         //works --> insert into database
         Member.insert({
-            _id: Meteor.userId(), //important
+            _id: Meteor.userId(),
+            name: name,
+            gender: gender,
             email: email,
             password: password,
-            name: name
         });
 
-        Router.go('home');
+        Router.go('dashboard');
+
     }
 });
 
