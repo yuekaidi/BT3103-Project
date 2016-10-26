@@ -24,7 +24,7 @@ Template.menu.events({
         
         console.log("details: " + name + " " + price + " " + cat)
 
-        //insert
+        //insert into database
         Menu.insert({
         	name: name,
         	unit_price: price, 
@@ -32,5 +32,16 @@ Template.menu.events({
         });
 
         Router.go('menu');
+        template.find("form").reset();//re-initialize form fields
     }
 });
+
+
+
+
+
+
+
+
+
+

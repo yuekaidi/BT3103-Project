@@ -1,26 +1,58 @@
 
 <template name="dashboard">
     <h2>Dashboard</h2>
-
-    <!-- Client Dashboard -->
     <div>
-    <h2>Welcome, {{#each loginName}}{{name}}{{/each}}</h2>
-    </div>
+    	<div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form role="form" class="coupon-creation">
+                    <h2>Create Coupon<small>Entered by waiter</small></h2>
+                    <hr>
 
+                    <div class="form-group">
+                        <input type="text" name="couponname" class="form-control input-lg" placeholder="Coupon Name" tabindex="1" required>
+                    </div>
+
+                   
+                    <div class="form-group">
+                        <input type="date" name="issuedate" class="form-control input-lg" placeholder="Issue Date" tabindex="5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" name="expirationdate" class="form-control input-lg" placeholder="Expiration Date" tabindex="6" required>
+                    </div>
+
+                    <div class="form-group">
+                    	<div class="row" required>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Big Group Coupon" tabindex="2"> Big Group Coupon</div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "First Time Coupon" tabindex="3"> First Time Coupon </div>
+                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
+                            <input type="radio" name="category" value = "Loyalty Coupon" tabindex="4"> Loyalty Coupon</div>
+                    	</div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create Coupon" class="btn btn-primary btn-block btn-lg" tabindex="7">
+                    </div>
+
+
+                </form>
+            </div>
+        </div> <!-- End of Creation Form -->
+    </div>
 </template>
 
 
+<template name="dish">
+	<br>
 
-
-
-
-
-
-
+	{{name}}
+	{{unit_price}}
+	qyt??
+</template>
 
 
 <template name="order">
 	<h2>Order History</h2>
-
-	
 </template>
