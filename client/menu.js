@@ -15,6 +15,7 @@ Template.menu.helpers({
 
 Template.menu.events({
 
+    //submit the form
 	'submit form': function(event, template){
         event.preventDefault();
 
@@ -33,9 +34,21 @@ Template.menu.events({
 
         Router.go('menu');
         template.find("form").reset();//re-initialize form fields
-    }
+    },
+
 });
 
+
+Template.displayDish.events({
+
+    // click on the checkbox to make order
+    'click #checkbox': function (event, template) {
+        //do what>
+
+
+    },
+
+});
 
 
 
