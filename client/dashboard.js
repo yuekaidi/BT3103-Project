@@ -18,11 +18,15 @@ Template.dashboard.helpers({
         return Order.find({member_id: Meteor.userId()});
     },
 
+    //create high charts
     createChart() {
-        //create chart
         var orderData = Order.find({member_id: Meteor.userId()}).count(); //count how many records are there
+
         console.log("orderData is: " + orderData);
-        return "haha";
+        
+        var date = Order.find({member_id: Meteor.userId()}).created_date;
+        console.log("Date is: " + date);
+        
     },
 
 
