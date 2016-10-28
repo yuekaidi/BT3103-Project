@@ -54,10 +54,7 @@ Template.displayDish.events({
         Session.set("dishname", this.name);
         console.log(Session.get("dishname"));
 
-        //Insert into Order Collection
-
-        //disable the button 
-        $(this).addClass("disabled");
+        // to be continued
 
     },
 

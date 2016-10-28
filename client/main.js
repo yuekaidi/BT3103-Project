@@ -18,4 +18,3 @@ Template.navigation.events({
         Router.go('home');
     }
 });
-

@@ -1,6 +1,6 @@
 <template name="menu">
     <div class="container">
-        <!--
+        
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form role="form">
@@ -34,7 +34,6 @@
                 </form>
             </div>
         </div> 
-        -->
 
         <!-- End of Creation Form -->
         
@@ -49,14 +48,14 @@
 
 <template name = "displayDish">
     <div class="col-xs-12 col-sm-8 col-md-3 dish-div">
-        <div class="col-xs-12 col-sm-12 col-md-12" style="text-align: center; text-transform: uppercase; text-weight: bold;">{{name}}</div>
+        <div class="col-xs-12 col-sm-12 col-md-12" style="text-align: center; text-transform: uppercase; text-weight: bold;">{{dish_name}}</div>
         <!-- Sample Image -->
         <div><img src="http://www.ilovealabamafood.com/wp-content/uploads/2011/12/dish-detail-bouillabaisse.png" style="width: 100%;"></div>
-        <div class="col-xs-12 col-sm-12 col-md-12">SGD {{unit_price}}</div>
-        <div class="col-xs-12 col-sm-12 col-md-12">{{category}}</div>
+        <div class="col-xs-12 col-sm-12 col-md-12">SGD {{dish_price}}</div>
+        <div class="col-xs-12 col-sm-12 col-md-12">{{dish_category}}</div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <input list = "number" placeholder = "Quantity" style="width: 50%;" class="form-control input-sm"><br>
-            <label><input type='button' value="order" id='orderbutton' class="btn btn-primary" ></label>
+            <input list = "number" id = "input-quantity" placeholder = "Quantity" style="width: 50%;" class="form-control input-sm"><br>
+            <label><input type='submit' value="order" id='orderbutton' class="btn btn-primary hide" ></label>
         </div>
     </div>
 

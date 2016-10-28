@@ -11,20 +11,26 @@ Template.dashboard.helpers({
 	// return current member object
 	loginName() {
 		var obj =  Member.find({_id: Meteor.userId()});
-		console.log("_id: " + Meteor.userId());
 		return obj; 
 	},
 
-	coupons() {
-		return Coupon.find();
-	},
+    allOrders() {
+        return Order.find({member_id: Meteor.userId()});
+    },
+
+    createChart() {
+        //create chart
+        var orderData = Order.find({member_id: Meteor.userId()}).count(); //count how many records are there
+        console.log("orderData is: " + orderData);
+        return "haha";
+    },
+
 
 });
 
 Template.dashboard.events({
 
-
-	//funcitons : create coupons
+	//funcitons : create orders
 	'submit form': function(event, template){
         event.preventDefault();
 
