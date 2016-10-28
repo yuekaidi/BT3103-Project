@@ -1,10 +1,14 @@
-import './dashboard.html';
+
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
+import { Session } from 'meteor/session';
 import { Order, Member, Coupon, Menu } from '../api/database.js';
 
+import './dashboard.html';
+
+Session.setDefault("dishname", []);
 
 Template.menu.helpers({
 
@@ -42,9 +46,18 @@ Template.menu.events({
 Template.displayDish.events({
 
     // click on the checkbox to make order
-    'click #checkbox': function (event, template) {
-        //do what>
+    'click #orderbutton': function (event, template) {
 
+        //event.preventDefault();
+        console.log("You clicked on Dish: " + this.name + " And its _id is: " + this._id);
+
+        Session.set("dishname", this.name);
+        console.log(Session.get("dishname"));
+
+        //Insert into Order Collection
+
+        //disable the button 
+        $(this).addClass("disabled");
 
     },
 
