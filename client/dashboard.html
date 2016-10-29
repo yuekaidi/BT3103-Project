@@ -143,6 +143,7 @@
                 {{/each}}
             </tbody>
         </table>
+
         <div>Payable Amount: {{payable_amount}}</div>
     </div>
     <br><br>
@@ -151,4 +152,22 @@
 
 <template name="order">
 	<h2>Order History</h2>
+
+    {{#each allOrders}}
+        Order ID: {{_id}}<br>
+        Member ID: {{member_id}}<br>
+        
+        {{> displayOrder}}
+    {{/each}}
 </template>
+
+
+
+
+
+
+
+
+
+
+

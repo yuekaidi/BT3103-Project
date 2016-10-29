@@ -1,6 +1,6 @@
 <template name="menu">
     <div class="container">
-        
+        <!--
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form role="form">
@@ -34,15 +34,22 @@
                 </form>
             </div>
         </div> 
-
+    -->
         <!-- End of Creation Form -->
         
         <!-- Display Menu -->
-        <div class="container">
-            {{#each allDishes}}
-                {{>displayDish}}
-            {{/each}}
-        </div>
+        
+            <div class="container">
+                {{#each allDishes}}
+                    {{>displayDish}}
+                {{/each}}
+            </div>
+
+            <form role="form">
+                <input type='submit' value="Order" class="btn btn-primary">
+            </form>
+        
+
     </div>
 </template>
 
@@ -53,20 +60,20 @@
         <div><img src="http://www.ilovealabamafood.com/wp-content/uploads/2011/12/dish-detail-bouillabaisse.png" style="width: 100%;"></div>
         <div class="col-xs-12 col-sm-12 col-md-12">SGD {{dish_price}}</div>
         <div class="col-xs-12 col-sm-12 col-md-12">{{dish_category}}</div>
+        
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <input list = "number" id = "input-quantity" placeholder = "Quantity" style="width: 50%;" class="form-control input-sm"><br>
-            <label><input type='submit' value="order" id='orderbutton' class="btn btn-primary hide" ></label>
+            <select class="number">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <hr>
         </div>
-    </div>
 
-    <!-- Data Options -->
-    <datalist id="number">
-        <option value="1"></option>
-        <option value="2"></option>
-        <option value="3"></option>
-        <option value="4"></option>
-        <option value="5"></option>
-    </datalist>
+    </div>
 </template>
 
 
