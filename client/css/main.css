@@ -1,4 +1,18 @@
-/* CSS declarations go here */
+.with-background {
+	background-color: white;
+	opacity: 0.9;
+	padding: 10px;
+	border-radius: 20px;
+}
+
+.lead{
+	text-align: center;
+	font-size: 48px;
+}
+
+.btn-number {
+	background: transparent;
+}
 
 input.error{
     background-color:rgb(255, 231, 231);
@@ -41,7 +55,7 @@ input.error{
 
 
 
-body {
+body{
 	background: url(https://shangzhenlin.files.wordpress.com/2012/08/img_2694.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -57,8 +71,7 @@ hr {
 	color: black; 
 }
 
-form {
-	background: rgba(0,0,0, 0.5); 
+form { 
 	padding: 10px;
 	border-radius: 10px;
 	color: white;

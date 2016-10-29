@@ -71,9 +71,8 @@ Template.menu.events({
 
 });
 
-
 Template.displayDish.helpers({
-    id(){
+    id() {
         return this._id;
     }
 });
@@ -82,7 +81,8 @@ Template.displayDish.events({
 
     'click .add-order': function(event, template) {
 
-        var quantity = parseInt($(this).closest('.quantity').find('#quantity').val());   
+        var id = this._id;
+        var quantity = parseInt($('#quantity' + id).val());   
 
         if (quantity > 0) {
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
@@ -97,10 +97,10 @@ Template.displayDish.events({
         // Stop acting like a button
         event.preventDefault();
         // Get the field name
-        console.log(this.closest('.input-group').find('#quantity').val());
-        var quantity = parseInt($(this).closest('.input-group').find('#quantity').val());        
+        var id = this._id;
+        var quantity = parseInt($('#quantity' + id).val());        
         // If is not undefined           
-            $(this).closest('.input-group').find('#quantity').val(quantity + 1);
+            $('#quantity' + id).val(quantity + 1);
             // Increment 
     },
 
@@ -108,32 +108,14 @@ Template.displayDish.events({
         // Stop acting like a button
         event.preventDefault();
         // Get the field name
-        var quantity = parseInt($(this).closest('.input-group').find('#quantity').val());  
+        var id = this._id;
+        var quantity = parseInt($('#quantity' + id).val());  
         // If is not undefined
             // Increment
             if(quantity>0){
-                $(this).closest('.input-group').find('#quantity').val(quantity - 1);
+            $('#quantity' + id).val(quantity - 1);
             }
     },
-
-    // 'click .quantity btn-number': function(event, template) {    
-    //     event.preventDefault();
-    //     var btn = $(this),
-    //     oldValue = btn.closest('.quantity').find('input').val().trim(),
-    //     newVal = 0;
-    
-    //     if (btn.attr('data-type') == 'plus') {
-
-    //         newVal = parseInt(oldValue) + 1;
-    //     } else {
-    //         if (oldValue > 0) {
-    //             newVal = parseInt(oldValue) - 1;
-    //         } else {
-    //             newVal = 0;
-    //         }
-    //     }
-    //     btn.closest('.quantity').find('input').val(newVal);
-    // },
 
 });
 
