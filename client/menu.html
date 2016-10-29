@@ -1,5 +1,5 @@
 <template name="menu">
-    <div class="container">
+    
         <!--
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
@@ -35,22 +35,18 @@
             </div>
         </div> 
     -->
-        <!-- End of Creation Form -->
+         <!-- Display Menu -->
         
-        <!-- Display Menu -->
-        
-            <div class="container">
-                {{#each allDishes}}
-                    {{>displayDish}}
-                {{/each}}
-            </div>
-
-            <form role="form">
-                <input type='submit' value="Order" class="btn btn-primary">
-            </form>
-        
-
+    <div class="container">
+        {{#each allDishes}}
+            {{>displayDish}}
+        {{/each}}
     </div>
+
+    <form role="form" class="col-xs-12 col-sm-8 col-md-3">
+        <input type='submit' value="Order" class="btn btn-primary">
+    </form>
+        
 </template>
 
 <template name = "displayDish">

@@ -14,20 +14,51 @@ Template.dashboard.helpers({
 		return obj; 
 	},
 
+    //return all orders 
     allOrders() {
         return Order.find({member_id: Meteor.userId()});
     },
 
     //create high charts
     createChart() {
-        var orderData = Order.find({member_id: Meteor.userId()}).count(); //count how many records are there
+      
+        var Highcharts = require('highcharts/highstock');
+        // Gather data: 
+        var allOrders = Order.find({member_id: Meteor.userId()}).fetch(); //fetch()
+        var orderAmt = [];
+        var orderDate = [];
 
-        console.log("orderData is: " + orderData);
-        
-        var date = Order.find({member_id: Meteor.userId()}).created_date;
-        console.log("Date is: " + date);
-        
-    },
+        //fetch data
+        for (i = 0; i < allOrders.length; i ++) {
+            orderAmt.push(allOrders[i].payable_amount);
+            orderDate.push(i+1);
+        }
+
+        console.log("Order Amount is :", orderAmt);
+        console.log("Order Date is :", orderDate);
+
+        orderData = [{
+            x: orderDate,
+            y: orderAmt,
+        }];
+
+      // Use Meteor.defer() to craete chart after DOM is ready:
+      Meteor.defer(function() {
+        // Create standard Highcharts chart with options:
+        Highcharts.chart('chart', {
+          title: {
+            text: "This is an updated title"
+          },
+          xAxis: {
+
+          },
+          series: [{
+            type: 'column',
+            data: [orderDate, orderAmt]
+          }]
+        });
+      });//end of defer()
+    } // end of createChart()
 
 
 });
@@ -58,4 +89,13 @@ Template.dashboard.events({
     }
 
 });
+
+
+
+
+
+
+
+
+
 
