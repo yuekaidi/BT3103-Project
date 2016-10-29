@@ -1,73 +1,145 @@
 <template name="menu">
-    
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <form role="form">
-                    <h2>Create Menu<small>Embark on possibilities</small></h2>
-                    <hr>
-                    <div class="form-group">
-                        <input type="text" name="dishname" class="form-control input-lg" placeholder="Dish Name" tabindex="1" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="double" name="price" class="form-control input-lg" placeholder="Price" tabindex="5" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="row" required>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Wine"> Wine</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "MainCourse"> Main Course</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Juice"> Juice</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Desert"> Desert</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Starter"> Starter</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Coffee"> Coffee </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create Dish" class="btn btn-primary btn-block btn-lg" tabindex="7">
-                    </div>
-                </form>
-            </div>
-        </div> 
-    
-         <!-- Display Menu -->
-        
-    <div class="container">
-        {{#each allDishes}}
-            {{>displayDish}}
-        {{/each}}
-    </div>
+	
+		
+<!--         <div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<form role="form">
+					<h2>Create Menu<small>Embark on possibilities</small></h2>
+					<hr>
+					<div class="form-group">
+						<input type="text" name="dishname" class="form-control input-lg" placeholder="Dish Name" tabindex="1" required>
+					</div>
+					<div class="form-group">
+						<input type="double" name="price" class="form-control input-lg" placeholder="Price" tabindex="5" required>
+					</div>
+					<div class="form-group">
+						<div class="row" required>
+							<div  class="col-xs-12 col-sm-8 col-md-3 ">
+							<input type="radio" name="category" value = "Wine"> Wine</div>
+							<div  class="col-xs-12 col-sm-8 col-md-3 ">
+							<input type="radio" name="category" value = "MainCourse"> Main Course</div>
+							<div  class="col-xs-12 col-sm-8 col-md-3 ">
+							<input type="radio" name="category" value = "Juice"> Juice</div>
+							<div  class="col-xs-12 col-sm-8 col-md-3 ">
+							<input type="radio" name="category" value = "Desert"> Desert</div>
+							<div  class="col-xs-12 col-sm-8 col-md-3 ">
+							<input type="radio" name="category" value = "Starter"> Starter</div>
+							<div  class="col-xs-12 col-sm-8 col-md-3 ">
+							<input type="radio" name="category" value = "Coffee"> Coffee </div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Create Dish" class="btn btn-primary btn-block btn-lg" tabindex="7">
+					</div>
+				</form>
+			</div>
+		</div>  -->
+	
+		 <!-- Display Menu -->
+		
+	<div class="container">
 
-    <form role="form" class="col-xs-12 col-sm-8 col-md-3">
-        <input type='submit' value="Order" class="btn btn-primary">
-    </form>
-        
+		<div class="row">
+
+			<div class="col-md-3">
+				<p class="lead">Shop Name</p>
+				<div class="list-group">
+					<a href="#" class="list-group-item">Category 1</a>
+					<a href="#" class="list-group-item">Category 2</a>
+					<a href="#" class="list-group-item">Category 3</a>
+				</div>
+			</div>
+
+			<div class="col-md-9">
+
+				<div class="row carousel-holder">
+
+					<div class="col-md-12">
+						<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">
+								<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+							</ol>
+							<div class="carousel-inner">
+								<div class="item active">
+									<img class="slide-image" src="http://placehold.it/800x300" alt="">
+								</div>
+								<div class="item">
+									<img class="slide-image" src="http://placehold.it/800x300" alt="">
+								</div>
+								<div class="item">
+									<img class="slide-image" src="http://placehold.it/800x300" alt="">
+								</div>
+							</div>
+							<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</a>
+							<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row">
+					{{#each allDishes}}
+						{{>displayDish}}
+					{{/each}}
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<form role="form" class="col-xs-12 col-sm-8 col-md-3">
+		<input type='submit' value="Order" class="btn btn-primary">
+	</form>
+
+
+
 </template>
 
 <template name = "displayDish">
-    <div class="col-xs-12 col-sm-8 col-md-3 dish-div">
-        <div class="col-xs-12 col-sm-12 col-md-12" style="text-align: center; text-transform: uppercase; text-weight: bold;">{{dish_name}}</div>
-        <!-- Sample Image -->
-        <div><img src="http://www.ilovealabamafood.com/wp-content/uploads/2011/12/dish-detail-bouillabaisse.png" style="width: 100%;"></div>
-        <div class="col-xs-12 col-sm-12 col-md-12">SGD {{dish_price}}</div>
-        <div class="col-xs-12 col-sm-12 col-md-12">{{dish_category}}</div>
-        
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <select class="number">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <hr>
-        </div>
+	<div class="col-sm-4 col-lg-4 col-md-4">
+		<div class="thumbnail">
+			<img src="http://placehold.it/320x150" alt="">
+			<div class="caption">
+				<h4 class="pull-right">SGD {{dish_price}}</h4>
+				<h4><a href="#">{{dish_name}}</a>
+				</h4>
+				<p>{{dish_category}}</p>
+			</div>
+			
 
-    </div>
+			<div class="input-group quantity">
+				<span class="input-group-btn">
+					<button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+						<span class="glyphicon glyphicon-minus"></span>
+					</button>
+				</span>
+				<input type="text" id="quantity" name="quantity" class="form-control input-number" value="0" min="0" max="100">
+				<span class="input-group-btn">
+					<button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</span>
+				<button type="button" class="add-order btn btn-number" data-type="" data-field="">Add to order</button>
+			</div>
+<!-- 
+			<div class="quantity">
+
+				<select class="number">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</div> -->
+		</div>
+	</div>
 </template>

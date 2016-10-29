@@ -72,19 +72,68 @@ Template.menu.events({
 });
 
 
+Template.displayDish.helpers({
+    id(){
+        return this._id;
+    }
+});
+
 Template.displayDish.events({
 
-    'change .number': function(event, template) {
+    'click .add-order': function(event, template) {
 
-        var val = template.$('.number').val(); // order qty
-        //console.log(val);
+        var quantity = parseInt($(this).closest('.quantity').find('#quantity').val());   
 
-        Session.set("amt", Session.get('amt') + val * this.dish_price);
-        //console.log("Amt: ", Session.get("amt"));
+        if (quantity > 0) {
+            Session.set("amt", Session.get('amt') + quantity * this.dish_price);
+            //console.log("Amt: ", Session.get("amt"));
 
-        dishname.push({dish_id: this._id, quantity: val});
-        Session.set("dishname", dishname);
+            dishname.push({dish_id: this._id, quantity: quantity});
+            Session.set("dishname", dishname);
+        }
     },
+
+    'click .quantity-right-plus': function(event, template) {
+        // Stop acting like a button
+        event.preventDefault();
+        // Get the field name
+        console.log(this.closest('.input-group').find('#quantity').val());
+        var quantity = parseInt($(this).closest('.input-group').find('#quantity').val());        
+        // If is not undefined           
+            $(this).closest('.input-group').find('#quantity').val(quantity + 1);
+            // Increment 
+    },
+
+    'click .quantity-left-minus': function(event, template) {
+        // Stop acting like a button
+        event.preventDefault();
+        // Get the field name
+        var quantity = parseInt($(this).closest('.input-group').find('#quantity').val());  
+        // If is not undefined
+            // Increment
+            if(quantity>0){
+                $(this).closest('.input-group').find('#quantity').val(quantity - 1);
+            }
+    },
+
+    // 'click .quantity btn-number': function(event, template) {    
+    //     event.preventDefault();
+    //     var btn = $(this),
+    //     oldValue = btn.closest('.quantity').find('input').val().trim(),
+    //     newVal = 0;
+    
+    //     if (btn.attr('data-type') == 'plus') {
+
+    //         newVal = parseInt(oldValue) + 1;
+    //     } else {
+    //         if (oldValue > 0) {
+    //             newVal = parseInt(oldValue) - 1;
+    //         } else {
+    //             newVal = 0;
+    //         }
+    //     }
+    //     btn.closest('.quantity').find('input').val(newVal);
+    // },
 
 });
 
