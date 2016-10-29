@@ -6,9 +6,6 @@ import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
 
 import './main.html';
 import './login.js';
-import './dashboard.js';
-import './dashboard.js';
-import './dashboard.html';
 import '/lib/routing.js';
 
 Template.navigation.events({

@@ -6,7 +6,7 @@ import { Mongo } from 'meteor/mongo';
 import { Session } from 'meteor/session';
 import { Order, Member, Coupon, Menu } from '../api/database.js';
 
-import './dashboard.html';
+import './menu.html';
 
 Session.setDefault("dishname", []);
 Session.setDefault("amt", 0);

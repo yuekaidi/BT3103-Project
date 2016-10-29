@@ -5,18 +5,11 @@ input.error{
 }
 
 @CHARSET "UTF-8";
-/*
-over-ride "Weak" message, show font in dark grey
-*/
 
 .progress-bar {
     color: #333;
 } 
 
-/*
-Reference:
-http://www.bootstrapzen.com/item/135/simple-login-form-logo/
-*/
 
 * {
     -webkit-box-sizing: border-box;
@@ -37,8 +30,6 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 .radio-group label {
    overflow: hidden;
 } .radio-group input {
-    /* This is on purpose for accessibility. Using display: hidden is evil.
-    This makes things keyboard friendly right out tha box! */
    height: 1px;
    width: 1px;
    position: absolute;
