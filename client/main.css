@@ -1,5 +1,6 @@
 /* CSS declarations go here */
 
+
 input.error{
     background-color:rgb(255, 231, 231);
 }
@@ -33,7 +34,6 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 		
 	}
 
-
 .radio-group label {
    overflow: hidden;
 } .radio-group input {
@@ -47,7 +47,6 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
    color: #3276b1;
    background-color: #fff;
 }
-
 
 
 body {
