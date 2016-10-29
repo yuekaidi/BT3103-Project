@@ -25,39 +25,45 @@ Template.dashboard.helpers({
         var Highcharts = require('highcharts/highstock');
         // Gather data: 
         var allOrders = Order.find({member_id: Meteor.userId()}).fetch(); //fetch()
-        var orderAmt = [];
+        var orderInfo = [];
         var orderDate = [];
-
+        
         //fetch data
         for (i = 0; i < allOrders.length; i ++) {
-            orderAmt.push(allOrders[i].payable_amount);
-            orderDate.push(i+1);
+            orderDate.push(allOrders[i].created_date);
+            orderInfo.push([orderDate, allOrders[i].payable_amount]);
         }
 
-        console.log("Order Amount is :", orderAmt);
-        console.log("Order Date is :", orderDate);
+        console.log("Order Info is :", orderInfo.toString());
 
-        orderData = [{
-            x: orderDate,
-            y: orderAmt,
-        }];
+        // Use Meteor.defer() to craete chart after DOM is ready:
+        Meteor.defer(function() {
+            Highcharts.chart('chart', {
+                title: {
+                    text: "Customer Each Order Amount",
+                },
 
-      // Use Meteor.defer() to craete chart after DOM is ready:
-      Meteor.defer(function() {
-        // Create standard Highcharts chart with options:
-        Highcharts.chart('chart', {
-          title: {
-            text: "This is an updated title"
-          },
-          xAxis: {
+                yAxis: {
+                    title: {
+                        text: "Amount ($)",
+                    },
+                },
 
-          },
-          series: [{
-            type: 'column',
-            data: [orderDate, orderAmt]
-          }]
-        });
-      });//end of defer()
+                xAxis: {
+                    categories: orderDate,
+                    crosshair: true,
+                },
+
+                series: [{
+                    type: 'column',
+                    name: 'Amount ($)',
+                    data: orderInfo,
+                },
+                ],
+            });
+
+        });//end of defer()
+
     } // end of createChart()
 
 
