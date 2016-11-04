@@ -1,153 +1,65 @@
-
 <template name="dashboard">
     <h2>Dashboard: Information of {{#each loginName}}{{name}}{{/each}}</h2>
-        <!--
-    	<div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-
-                <form role="form" class="coupon-creation">
-                    <h2>Create Coupon<small>Entered by waiter</small></h2>
-                    <hr>
-
-                    <div class="form-group">
-                        <input type="text" name="couponname" class="form-control input-lg" placeholder="Coupon Name" tabindex="1" required>
-                    </div>
-
-                   
-                    <div class="form-group">
-                        <input type="date" name="issuedate" class="form-control input-lg" placeholder="Issue Date" tabindex="5" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="date" name="expirationdate" class="form-control input-lg" placeholder="Expiration Date" tabindex="6" required>
-                    </div>
-
-                    <div class="form-group">
-                    	<div class="row" required>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Big Group Coupon" tabindex="2"> Big Group Coupon</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "First Time Coupon" tabindex="3"> First Time Coupon </div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="category" value = "Loyalty Coupon" tabindex="4"> Loyalty Coupon</div>
-                    	</div>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" value="Create Coupon" class="btn btn-primary btn-block btn-lg" tabindex="7">
-                    </div>
-                </form>
-            </div>
-        </div>
-         -->
-
-         <!--
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-
-                <form role="form" class="order-creation">
-                    <h2>Create Order<small>Entered by waiter</small></h2>
-                    <hr>
-
-                    <div class="form-group">
-                        <input type="number" name="numberofdinners" class="form-control input-lg" placeholder="Number of Dinners" tabindex="1" required>
-                    </div>
-
-                   
-                    <div class="form-group">
-                        <input type="date" name="dinnerdate" class="form-control input-lg" placeholder="Date" tabindex="2" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" name="couponcode" class="form-control input-lg" placeholder="Coupon Code" tabindex="3" required>
-                    </div>
-
-                    
-                    <div class="form-group">
-                        <input type="text" name="dishname" class="form-control input-lg" placeholder="Dish Name" tabindex="4" required>
-                    </div>
-
-                    
-                    <div class="form-group">
-                        <input type="number" name="dishquantity" class="form-control input-lg" placeholder="Dish Quantity" tabindex="5" required>
-                    </div>
-
-                    
-
-                    <div class="form-group">
-                        <input type="number" styp="any" name="payable" class="form-control input-lg" placeholder="Payable Amount" tabindex="6" required>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row" required>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="method" value = "Cash" > Cash</div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="method" value = "Credit Card" > Credit Card </div>
-                            <div  class="col-xs-12 col-sm-8 col-md-3 ">
-                            <input type="radio" name="method" value = "Member Card" > Member Card</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" value="Create Order" class="btn btn-primary btn-block btn-lg" tabindex="7">
-                    </div>
-                </form>
-            </div>
-        </div> 
-    -->
-
     <!-- Some Personal Info -->
     <div>
         {{#each loginName}}
-            <div>Name: {{name}}</div>
-            <div>Gender: {{gender}}</div>
-            <div>Birthday: {{birth_date}}</div>
-            <div>Delivery Address: {{address.street}} {{address.city}} {{address.zip_code}}</div>
-            <div>Member from: {{membership.join_date}}</div>
-            <div>Member Until: {{membership.expiration_date}}</div>
-            <div>Member Level: {{membership.membership_level}}</div>
+        <div>Name: {{name}}</div>
+        <div>Gender: {{gender}}</div>
+        <div>Birthday: {{birth_date}}</div>
+        <div>Delivery Address: {{address.street}} {{address.city}} {{address.zip_code}}</div>
+        <div>Member from: {{membership.join_date}}</div>
+        <div>Member Until: {{membership.expiration_date}}</div>
+        <div>Member Level: {{membership.membership_level}}</div>
         {{/each}}
     </div>
 
     <!-- Some Order Info -->
     <div>
         <h2>Past Orders</h2>
-        {{#each allOrders}}
+        <div class="panel-group" id="accordion">
+            {{#each allOrders}}
             {{> displayOrder}}
-        {{/each}}
+            {{/each}}
+        </div>      
     </div>
 
     <!-- Chart -->
     <div id="chart">{{createChart}}</div>
-   
-
 </template>
 
 
-
 <template name="displayOrder">
-	<div><b>Order Date: {{created_date}}</b></div>
-    <div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
+                    <b>Order Date: {{created_date}}</b>
+                </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+            </h4>
+        </div>
+        <div id="{{_id}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div>
+                    <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6" style="margin: 0; color: red;">
+                        <thead>
+                            <th>Dish Ordered</th>
+                            <th>Quantity</th>
+                        </thead>
 
-        <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6" style="margin: 0; color: red;">
-            <thead>
-                <th>Dish Ordered</th>
-                <th>Quantity</th>
-            </thead>
-        
-            <tbody>
-                {{#each i in dishes}} <!-- Display Each Dish -->
-                    <tr></tr>
-                    <td>{{i.dish_id}}</td>
-                    <td>{{i.quantity}}</td>
-                {{/each}}
-            </tbody>
-        </table>
+                        <tbody>
+                            {{#each i in dishes}} <!-- Display Each Dish -->
+                            <tr></tr>
+                            <td>{{i.dish_id}}</td>
+                            <td>{{i.quantity}}</td>
+                            {{/each}}
+                        </tbody>
+                    </table>
 
-        <div>Payable Amount: {{payable_amount}}</div>
-    </div>
-    <br><br>
+                    <div>Payable Amount: {{payable_amount}}</div>
+                </div>
+            </div>
+        </div>
+    </div> 
 </template>
 
 
@@ -155,10 +67,10 @@
 	<h2>Order History</h2>
 
     {{#each allOrders}}
-        Order ID: {{_id}}<br>
-        Member ID: {{member_id}}<br>
-        
-        {{> displayOrder}}
+    Order ID: {{_id}}<br>
+    Member ID: {{member_id}}<br>
+
+    {{> displayOrder}}
     {{/each}}
 </template>
 

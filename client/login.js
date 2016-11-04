@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
+import { Accounts } from 'meteor/accounts-base';
 import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
 
 import './login.html';
@@ -11,7 +12,9 @@ Template.register.events({
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
-        var name = $('[name=name]').val();
+        var firstname = $('[name=firstname]').val();
+        var lastname = $('[name=lasttname]').val();
+        var day = $('[name=day]').val();
         var gender = $('[name=gender]').val();
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
