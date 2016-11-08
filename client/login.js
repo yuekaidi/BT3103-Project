@@ -44,7 +44,8 @@ Template.register.events({
                     memberId: null,
                     authenticated: null,
                     coupon75: null,
-                    coupon100: null
+                    coupon100: null,
+                    admin: false
                 });
                 Router.go("home"); // Redirect user if registration succeeds
             }
@@ -57,8 +58,15 @@ Template.login.events({
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
-        Meteor.loginWithPassword(email, password);
-        Router.go('home');
+        Meteor.loginWithPassword(email, password, function(err){
+            if(err){
+                console.log(err);
+                return false;
+            }
+            else{
+                Router.go('home');
+            }
+        });
     }
 });
 
@@ -67,6 +75,7 @@ Template.login.onRendered(function(){
 });
 
 Template.login.helpers({
+
 });
 
 

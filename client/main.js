@@ -15,3 +15,9 @@ Template.navigation.events({
         Router.go('home');
     }
 });
+
+Template.navigation.helpers({
+	admin() {
+        return Member.findOne({_id:Meteor.userId}).fetch().admin;
+    }
+})

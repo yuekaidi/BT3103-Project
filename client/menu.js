@@ -10,6 +10,7 @@ import './menu.html';
 
 Session.setDefault("dishname", []);
 Session.setDefault("amt", 0);
+Session.setDefault("coupon", 1);
 var dishname = Session.get("dishname").slice();
 Session.setDefault("createOrderId", "");
 
@@ -28,11 +29,33 @@ Template.menu.helpers({
 
     totalPrice() {
         return Session.get("amt");
+    },
+
+    coupon() {
+        var coupon75 = Meteor.users.findOne({_id: Meteor.userId()}).fetch().coupon75;
+        var coupon100 = Meteor.users.findOne({_id: Meteor.userId()}).fetch().coupon100;
+        if (coupon100) { 
+            Session.set('coupon', 0.1);
+            return "10% off";
+        }
+        if (coupon75) {
+            Session.set('coupon', 0.075);
+            return "7.5% off";
+        }        
+        Session.set('coupon', 0.05);
+        return "5% off";
     }
 });
 
 
 Template.menu.events({
+    'change input': function () {
+        var status = event.target.coupon.checked;
+        if (status) {
+            Session.set('amt', Session.get('amt') * Session.get('coupon'));
+        }
+    },
+
     'submit form': function () {
 
         event.preventDefault();
@@ -57,6 +80,8 @@ Template.menu.events({
 
     },
 
+
+
 });
 
 Template.displayDish.helpers({
@@ -76,7 +101,7 @@ Template.displayDish.events({
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
             //console.log("Amt: ", Session.get("amt"));
 
-            dishname.push({dish_id: this._id, dish_name: this.dish_name, quantity: quantity});
+            dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_price: this.dish_price, quantity: quantity});
             Session.set("dishname", dishname);
         }
     },

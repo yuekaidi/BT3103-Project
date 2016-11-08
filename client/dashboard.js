@@ -9,9 +9,9 @@ import './dashboard.html';
 Template.dashboard.helpers({
 
 	// return current member object
-	loginName() {
-		var obj =  Member.find({_id: Meteor.userId()});
-		return obj; 
+	user() {
+        console.log(Member.findOne({_id: Meteor.userId()}).fetch());
+        return Member.findOne({_id: Meteor.userId()}).fetch();
 	},
 
     //return all orders 
@@ -65,7 +65,6 @@ Template.dashboard.helpers({
         });//end of defer()
 
     } // end of createChart()
-
 
 });
 

@@ -6,6 +6,14 @@
 	<meta name="author" content="">
 	<title>Xin Wang</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
 </head>
 
 <body>
@@ -23,7 +31,7 @@
 </template>
 
 <template name="home">
-	<p>This is the content of home page</p>
+	<img src="https://shangzhenlin.files.wordpress.com/2012/08/img_2694.jpg" alt="" width=100%>
 </template>
 
 <template name="navigation">
@@ -42,24 +50,26 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{pathFor route='menu'}}">About</a></li>
 					<li><a href="{{pathFor route='menu'}}">Menu</a></li>
 					<li><a href="{{pathFor route='outlets'}}">Outlets</a></li>
-					<li><a href="{{pathFor route='menu'}}">Member</a></li>
 				</ul>
-				{{#if currentUser}}
-				<ul class="nav navbar-nav">
-					<li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
-					<li><a href="{{pathFor route='order'}}">Orders</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-				</ul>
+				{{#if admin}}
+					<li><a href="{{pathFor route='admin'}}">Admin</a></li>
 				{{else}}
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="{{pathFor route='register'}}">Sign Up</a></li>
-					<li><a href="{{pathFor route='login'}}">Login</a></li>
-				</ul>
+					{{#if currentUser}}
+					<ul class="nav navbar-nav">
+						<li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
+						
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					</ul>
+					{{else}}
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{{pathFor route='register'}}">Sign Up</a></li>
+						<li><a href="{{pathFor route='login'}}">Login</a></li>
+					</ul>
+					{{/if}}
 				{{/if}}
 			</div>
 			<!-- /.navbar-collapse -->

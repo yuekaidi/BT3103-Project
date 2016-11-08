@@ -5,10 +5,13 @@
 	border-radius: 20px;
 }
 
-.lead{
+h1, h2, h3 {
 	text-align: center;
-	font-size: 48px;
 }
+
+.bold {
+	font-weight: bold;
+	}
 
 .btn-number {
 	background: transparent;
