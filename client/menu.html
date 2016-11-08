@@ -1,76 +1,41 @@
-<template name="menu">
-	
-		
-<!--         <div class="row">
-			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-				<form role="form">
-					<h2>Create Menu<small>Embark on possibilities</small></h2>
-					<hr>
-					<div class="form-group">
-						<input type="text" name="dishname" class="form-control input-lg" placeholder="Dish Name" tabindex="1" required>
-					</div>
-					<div class="form-group">
-						<input type="double" name="price" class="form-control input-lg" placeholder="Price" tabindex="5" required>
-					</div>
-					<div class="form-group">
-						<div class="row" required>
-							<div  class="col-xs-12 col-sm-8 col-md-3 ">
-							<input type="radio" name="category" value = "Wine"> Wine</div>
-							<div  class="col-xs-12 col-sm-8 col-md-3 ">
-							<input type="radio" name="category" value = "MainCourse"> Main Course</div>
-							<div  class="col-xs-12 col-sm-8 col-md-3 ">
-							<input type="radio" name="category" value = "Juice"> Juice</div>
-							<div  class="col-xs-12 col-sm-8 col-md-3 ">
-							<input type="radio" name="category" value = "Desert"> Desert</div>
-							<div  class="col-xs-12 col-sm-8 col-md-3 ">
-							<input type="radio" name="category" value = "Starter"> Starter</div>
-							<div  class="col-xs-12 col-sm-8 col-md-3 ">
-							<input type="radio" name="category" value = "Coffee"> Coffee </div>
-						</div>
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Create Dish" class="btn btn-primary btn-block btn-lg" tabindex="7">
-					</div>
-				</form>
-			</div>
-		</div>  -->
-	
-		 <!-- Display Menu -->
-		
+<template name="menu">		
 	<div class="container with-background">
 		<p class="lead">Menu</p>
 		<div class="row">
 
-			<div class="col-md-2">
+<!-- 			<div class="col-md-2">
 				<div class="list-group">
 					<a href="#" class="list-group-item">Category 1</a>
 					<a href="#" class="list-group-item">Category 2</a>
 					<a href="#" class="list-group-item">Category 3</a>
 				</div>
 			</div>
-
-			<div class="col-md-10">
+ -->
+			<div class="col-md-12">
 				<div class="row">
 					{{#each allDishes}}
 						{{>displayDish}}
 					{{/each}}
 				</div>
-			<form role="form" class="col-xs-12 col-sm-8 col-md-3">
-				<input type='submit' value="Order" class="btn btn-primary">
-			</form>
+				<div class="row">
+					{{#each selected}}
+						<p>{{dish_name}}</p>
+						<p>{{quantity}}</p>
+					{{/each}}
+					<p>{{totalPrice}}</p>
+				</div>
+				<form role="form" class="col-xs-12 col-sm-8 col-md-4">
+					<input type='submit' value="Order" class="btn btn-primary">
+				</form>
 			</div>
 		</div>
 	</div>
-	
-
-
-
 </template>
 
 <template name = "displayDish">
 	<div class="col-sm-4 col-lg-4 col-md-4">
 		<div class="thumbnail">
-			<img src="http://www.seriouseats.com/recipes/assets_c/2016/01/20160206-fried-rice-food-lab-68-thumb-1500xauto-429632.jpg" alt="" height=200>
+			<img src="{{dish_image}}" alt="" height=200>
 			<div class="caption">
 				<h4 class="pull-right">SGD {{dish_price}}</h4>
 				<h4><a href="#">{{dish_name}}</a>

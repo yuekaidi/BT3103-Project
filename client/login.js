@@ -3,26 +3,52 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
-import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
+import { Session } from 'meteor/session';
+import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './login.html';
 
 Template.register.events({
+    // radio button
+    'click .male': function(){
+        $('.male').removeClass('not-active');
+        $('.female').addClass('not-active');
+    },
+
+    'click .female': function(){
+        $('.female').removeClass('not-active');
+        $('.male').addClass('not-active');
+    },
+
     'submit form': function(event){
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
         var firstname = $('[name=firstname]').val();
         var lastname = $('[name=lasttname]').val();
-        var day = $('[name=day]').val();
         var gender = $('[name=gender]').val();
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
             email: email,
             password: password
+        }, function(error){
+            if(error){
+                console.log(error); // Output error if registration fails
+            } else {
+                Member.insert({
+                    _id: Meteor.userId(),
+                    email: email,
+                    firstname: firstname,
+                    lastname: lastname,
+                    gender: gender,
+                    memberId: null,
+                    authenticated: null,
+                    coupon75: null,
+                    coupon100: null
+                });
+                Router.go("home"); // Redirect user if registration succeeds
+            }
         });
-        var userId = Meteor.userId();
-        Router.go('home');
     }
 });
 
@@ -40,13 +66,7 @@ Template.login.onRendered(function(){
     $('.login').validate();
 });
 
-
-
-// radio button
-
-$(function() {
-    // Input radio-group visual controls
-    $('.radio-group label').on('click', function(){
-        $(this).removeClass('not-active').siblings().addClass('not-active');
-    });
+Template.login.helpers({
 });
+
+

@@ -13,38 +13,26 @@ Session.setDefault("amt", 0);
 var dishname = Session.get("dishname").slice();
 Session.setDefault("createOrderId", "");
 
+// db.menu.insert({ "_id" : 1001, "dish_name" : "Fried Rice", "dish_category" : "Main", "dish_price" : 9.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Xin-Wang-0006.jpg" })
+// db.menu.insert({ "_id" : 1002, "dish_name" : "Salmon Spaghetti", "dish_category" : "Main", "dish_price" : 12.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/pasta1.jpg" })
+// db.menu.insert({ "_id" : 1003, "dish_name" : "Papaya Soup Pork Chop", "dish_category" : "Main", "dish_price" : 8.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Papaya-Soup_Pork-Chop.jpg" })
 
 Template.menu.helpers({
-
     allDishes() {
         return Menu.find();
+    },
+
+    selected() {
+        return Session.get("dishname");
+    },
+
+    totalPrice() {
+        return Session.get("amt");
     }
 });
 
 
 Template.menu.events({
-    /*
-	'submit form': function(event, template){
-        event.preventDefault();
-
-        var name = $('[name=dishname]').val();
-        var price = $('[name=price]').val();
-        var cat = template.find('input:radio[name=category]:checked').value;
-        
-        console.log("details: " + name + " " + price + " " + cat)
-
-        //insert into database
-        Menu.insert({
-        	dish_name: name,
-        	dish_price: price, 
-        	dish_category: cat,
-        });
-
-        Router.go('menu');
-        template.find("form").reset();//re-initialize form fields
-    },
-    */
-
     'submit form': function () {
 
         event.preventDefault();
@@ -88,7 +76,7 @@ Template.displayDish.events({
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
             //console.log("Amt: ", Session.get("amt"));
 
-            dishname.push({dish_id: this._id, quantity: quantity});
+            dishname.push({dish_id: this._id, dish_name: this.dish_name, quantity: quantity});
             Session.set("dishname", dishname);
         }
     },
@@ -112,8 +100,8 @@ Template.displayDish.events({
         var quantity = parseInt($('#quantity' + id).val());  
         // If is not undefined
             // Increment
-            if(quantity>0){
-            $('#quantity' + id).val(quantity - 1);
+            if(quantity>0){ 
+                $('#quantity' + id).val(quantity - 1);
             }
     },
 
@@ -125,6 +113,8 @@ Template.order.helpers({
     allOrders() {
         return Order.find({_id: Session.get("createOrderId")});
     },
+
+
 });
 
 
