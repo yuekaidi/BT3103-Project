@@ -2,15 +2,6 @@
 	<div class="container with-background">
 		<h2 class="center">Menu</h2>
 		<div class="row">
-
-<!-- 			<div class="col-md-2">
-				<div class="list-group">
-					<a href="#" class="list-group-item">Category 1</a>
-					<a href="#" class="list-group-item">Category 2</a>
-					<a href="#" class="list-group-item">Category 3</a>
-				</div>
-			</div>
-		-->
 			<div class="col-md-12">
 				<div class="row">
 					{{#each allDishes}}
@@ -44,9 +35,8 @@
 								<tr>
 									<td class="bold">Coupons</td>
 									<td colspan="2">
-										<div class="bold btn-group radio-group">
-	                            			<input type="checkbox" id="coupon" value="coupon" name="coupon"><P>{{coupon}}</P>
-	                        			</div>
+                            			<div><input type="checkbox" id="coupon" value="coupon" name="coupon">  {{coupon}}
+                            				<input type="checkbox" id="coupon2" value="coupon2" name="coupon2">  {{coupon2}}</div>
                         			</td>
 								</tr>
 							</tbody>

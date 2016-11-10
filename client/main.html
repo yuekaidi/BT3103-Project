@@ -53,7 +53,7 @@
 					<li><a href="{{pathFor route='menu'}}">Menu</a></li>
 					<li><a href="{{pathFor route='outlets'}}">Outlets</a></li>
 				</ul>
-				{{#if admin}}
+				{{#if admin.admin}}
 					<li><a href="{{pathFor route='admin'}}">Admin</a></li>
 				{{else}}
 					{{#if currentUser}}

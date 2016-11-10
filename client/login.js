@@ -25,7 +25,7 @@ Template.register.events({
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
         var firstname = $('[name=firstname]').val();
-        var lastname = $('[name=lasttname]').val();
+        var lastname = $('[name=lastname]').val();
         var gender = $('[name=gender]').val();
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({

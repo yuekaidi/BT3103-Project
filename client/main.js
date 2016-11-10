@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
-import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
+import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './main.html';
 import './login.js';
@@ -18,6 +18,6 @@ Template.navigation.events({
 
 Template.navigation.helpers({
 	admin() {
-        return Member.findOne({_id:Meteor.userId}).fetch().admin;
+        return Member.findOne({_id:Meteor.userId()});
     }
 })

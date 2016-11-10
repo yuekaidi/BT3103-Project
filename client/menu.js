@@ -32,8 +32,8 @@ Template.menu.helpers({
     },
 
     coupon() {
-        var coupon75 = Meteor.users.findOne({_id: Meteor.userId()}).fetch().coupon75;
-        var coupon100 = Meteor.users.findOne({_id: Meteor.userId()}).fetch().coupon100;
+        var coupon75 = Member.findOne({_id: Meteor.userId()}).coupon75;
+        var coupon100 = Member.findOne({_id: Meteor.userId()}).coupon100;
         if (coupon100) { 
             Session.set('coupon', 0.1);
             return "10% off";
@@ -42,17 +42,32 @@ Template.menu.helpers({
             Session.set('coupon', 0.075);
             return "7.5% off";
         }        
-        Session.set('coupon', 0.05);
+    },
+
+    coupon2() {
         return "5% off";
     }
 });
 
 
 Template.menu.events({
-    'change input': function () {
-        var status = event.target.coupon.checked;
+    'click #coupon': function () {
+        var status = $('#coupon').prop('checked');
         if (status) {
-            Session.set('amt', Session.get('amt') * Session.get('coupon'));
+            Session.set('amt', (Session.get('amt') * (1-Session.get('coupon'))).toFixed(2));
+        }
+        else {
+            Session.set('amt', (Session.get("oriamt")));
+        }
+    },
+
+    'click #coupon2': function() {
+        var status = $('#coupon2').prop('checked');
+        if (status) {
+            Session.set('amt', (Session.get('amt') * (0.95)).toFixed(2));
+        }
+        else {
+            Session.set('amt', (Session.get("oriamt")));
         }
     },
 
@@ -99,6 +114,7 @@ Template.displayDish.events({
 
         if (quantity > 0) {
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
+            Session.set("oriamt", Session.get("amt"));
             //console.log("Amt: ", Session.get("amt"));
 
             dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_price: this.dish_price, quantity: quantity});

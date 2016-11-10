@@ -10,8 +10,7 @@ Template.dashboard.helpers({
 
 	// return current member object
 	user() {
-        console.log(Member.findOne({_id: Meteor.userId()}).fetch());
-        return Member.findOne({_id: Meteor.userId()}).fetch();
+        return Member.find({_id: Meteor.userId()});
 	},
 
     //return all orders 
