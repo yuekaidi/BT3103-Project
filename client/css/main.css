@@ -1,0 +1,122 @@
+.with-background {
+	background-color: white;
+	opacity: 0.9;
+	padding: 10px;
+	border-radius: 20px;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+	}
+
+.btn-number {
+	background: transparent;
+}
+
+input.error{
+    background-color:rgb(255, 231, 231);
+}
+
+@CHARSET "UTF-8";
+
+.progress-bar {
+    color: #333;
+} 
+
+
+* {
+    -webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	outline: none;
+}
+
+    .form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+		
+	}
+
+
+.radio-group label {
+   overflow: hidden;
+} .radio-group input {
+   height: 1px;
+   width: 1px;
+   position: absolute;
+   top: -10px;
+} .radio-group .not-active  {
+   color: #3276b1;
+   background-color: #fff;
+}
+
+
+
+body{
+	background: url('/background.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.login-form {
+	margin-top: 60px;
+}
+
+hr {
+	color: black; 
+}
+
+form { 
+	padding: 10px;
+	border-radius: 10px;
+	/*color: white;*/
+}
+
+form[role=login] {
+	color: #5d5d5d;
+	background: #f2f2f2;
+	padding: 26px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+	form[role=login] img {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 35px;
+	}
+	form[role=login] input,
+	form[role=login] button {
+		font-size: 18px;
+		margin: 16px 0;
+	}
+	form[role=login] > div {
+		text-align: center;
+	}
+	
+.form-links {
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 50px;
+}
+	.form-links a {
+		color: #fff;
+}
+
+
+
+
+
+.dish-div {
+	min-height: 120px;
+	background: white;
+	border: 1px solid black;
+}

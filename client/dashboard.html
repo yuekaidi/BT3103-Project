@@ -1,3 +1,145 @@
 <template name="dashboard">
-    <h2>Dashboard</h2>
+    <div class="container">
+    <div class="with-background col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        {{#each user}}
+            <h2>{{firstname}}'s Profile</h2>
+            <!-- Some Personal Info -->
+            <div>
+                <h4>Name: {{firstname}} {{lastname}}</h4>
+                <h4>Gender: {{gender}}</h4>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="col-xs-12 col-sm-2 col-md-3"></div>
+</div>
+    <div class="row">
+    <!-- Some Order Info -->
+    <div>
+        <h2>Past Orders</h2>
+        <div class="panel-group" id="accordion">
+            {{#each allOrders}}
+            {{> displayOrder}}
+            {{/each}}
+        </div>      
+    </div>
+</div>
+
+    <!-- Chart -->
+    <div id="chart">{{createChart}}</div>
 </template>
+
+
+<template name="displayOrder">
+    <div class="container with-background">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
+                    <b>Order Date: {{created_date}}</b>
+                </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+            </h4>
+        </div>
+        <div id="{{_id}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div>
+                    <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6">
+                        <thead>
+                            <th>Dish Ordered</th>
+                            <th>Quantity</th>
+                        </thead>
+
+                        <tbody>
+                            {{#each i in dishes}} <!-- Display Each Dish -->
+                            <tr></tr>
+                            <td>{{i.dish_name}}</td>
+                            <td>{{i.quantity}}</td>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                    <div>Payable Amount: {{payable_amount}}</div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+</template>
+
+
+<template name="order">
+	<h2>Order History</h2>
+
+    {{#each allOrders}}
+    Order ID: {{_id}}<br>
+    Member ID: {{member_id}}<br>
+
+    {{> displayOrder}}
+    {{/each}}
+</template>
+
+<template name = 'coupon'>
+    <div>
+        <div>Coupon Lists</div>
+        <div>
+            <div>Create Coupon</div>
+            <form role='form'>
+                <input type='text' name='name' placeholder = 'Coupon Name' required>
+                <input type='text' name='rate' placeholder = 'Coupon Discount Rate' required >
+                <button type='button' class='coupon1' value="Create">Create</button>
+            </form>
+        </div>
+
+        <div>
+            <table class='table table-stripped table-bordered'>
+                <thead>
+                    <th>Coupon Name</th>
+                    <th>Coupon Discount</th>
+                </thead>
+                <tbody>
+                    {{#each allCoupons}}
+                        <tr>{{>displayCoupon}}</tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- end of coupon lists -->
+
+    <!-- start of users display -->
+    <div>
+        <div>
+            <div>Customers Coupon</div>
+            <div>
+                <table class='table table-stripped table-bordered'>
+                    <thead>
+                        <th>Customer Name</th>
+                        <th>Customer Gender</th>
+                        <th>Customer Coupons</th>
+                    </thead>
+                    <tbody>
+                        {{#each customers}}
+                            <tr>{{> displayCustomer}}</tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- end of users display -->
+</template>
+
+<template name = 'displayCoupon'>
+    <td>{{coupon_name}}</td>
+    <td>{{coupon_discount}}</td>
+</template>
+
+<template name = 'displayCustomer'>
+    <td>{{lastname}}, {{firstname}}</td>
+    <td>{{gender}}</td>
+    <td>{{coupon.coupon_name}} (Consumed?: {{#if coupon.consumed }}"Yes"{{else}}"No"{{/if}})</td>
+</template>
+
+
+
+

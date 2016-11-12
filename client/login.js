@@ -2,21 +2,47 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo';
-import { Order, Mmeber, Coupon, Menu } from '../api/database.js';
+import { Accounts } from 'meteor/accounts-base';
+import { Session } from 'meteor/session';
+import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './login.html';
 
 Template.register.events({
+    // radio button
+    'click .male': function(){
+        $('.male').removeClass('not-active');
+        $('.female').addClass('not-active');
+    },
+
+    'click .female': function(){
+        $('.female').removeClass('not-active');
+        $('.male').addClass('not-active');
+    },
+
     'submit form': function(event){
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
+        var firstname = $('[name=firstname]').val();
+        var lastname = $('[name=lastname]').val();
+        var gender = $('[name=gender]').val();
+        var coupon = Coupon.findOne({coupon_name: "New Coming 5% Discount"});
+
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
             email: email,
-            password: password
+            password: password, 
+        }, function(error){
+            if(error){
+                alert("Error!");
+                console.log(error); // Output error if registration fails
+            } else {
+                Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, coupon, false);
+                Meteor.call('update_coupon', coupon, false, 7);
+                Router.go("home"); // Redirect user if registration succeeds
+            }
         });
-        Router.go('home');
     }
 });
 
@@ -25,8 +51,16 @@ Template.login.events({
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
-        Meteor.loginWithPassword(email, password);
-        Router.go('home');
+        Meteor.loginWithPassword(email, password, function(err){
+            if(err){
+                console.log(err);
+                alert("Error!");
+                return false;
+            }
+            else{
+                Router.go('home');
+            }
+        });
     }
 });
 
@@ -35,70 +69,4 @@ Template.login.onRendered(function(){
 });
 
 
-// Register template with password matching
 
-$(function () {
-    $('.button-checkbox').each(function () {
-
-        // Settings
-        var $widget = $(this),
-            $button = $widget.find('button'),
-            $checkbox = $widget.find('input:checkbox'),
-            color = $button.data('color'),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
-
-        // Event Handlers
-        $button.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $button.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $button.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$button.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $button
-                    .removeClass('btn-default')
-                    .addClass('btn-' + color + ' active');
-            }
-            else {
-                $button
-                    .removeClass('btn-' + color + ' active')
-                    .addClass('btn-default');
-            }
-        }
-
-        // Initialization
-        function init() {
-
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($button.find('.state-icon').length == 0) {
-                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i>');
-            }
-        }
-        init();
-    });
-});

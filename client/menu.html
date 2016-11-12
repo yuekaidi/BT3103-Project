@@ -1,0 +1,137 @@
+<template name="menu">		
+	<div class="container with-background">
+		<h2 class="center">Menu</h2>
+		<!-- for admin / add/update/delete menu -->
+		{{#if isAdmin}}
+		<div class='row'>
+			<div class="wrapper">
+				<div>Add Dish</div>
+				<br>
+
+				<form role='form'>
+					<input type = 'text' placeholder='dish name' name='name' required >
+					<br>
+					<input type = 'text' placeholder='dish price' name='price' required >
+					<br>
+					<input type = 'text' placeholder='dish category' name='cat' required >
+					<br>
+					<input type = 'text' placeholder='dish image uul' name='url' required >
+					<br>
+					<input type='submit' id = "form1" value="Create">
+				</form>
+
+			</div>
+
+			<div>
+				<div class="row">
+					{{#each allDishes}}
+					{{>displayDishAdmin}}
+					{{/each}}
+				</div>
+			</div>
+		</div>
+
+
+		{{else}}
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					{{#each allDishes}}
+					{{>displayDish}}
+					{{/each}}
+				</div>
+				<!-- display ordered items -->
+				<div class="row">
+					{{#if selected}}
+						<h3>Order Summary</h3>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Unit Price</th>
+									<th>Quantity</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each selected}}
+								<tr>
+									<td>{{dish_name}}</td>
+									<td>{{dish_price}}</td>
+									<td>{{quantity}}</td>
+								</tr>
+								{{/each}}
+								<tr>
+									<td class="bold">Total</td>
+									<td colspan="2" class="bold">{{totalPrice}}</td>
+								</tr>
+								<tr>
+									<td class="bold">Coupons</td>
+									<td colspan="2">
+                            			<div><input type="checkbox" id="coupon" value="coupon" name="coupon">  {{coupon}}
+                            				<input type="checkbox" id="coupon2" value="coupon2" name="coupon2">  {{coupon2}}</div>
+                        			</td>
+								</tr>
+							</tbody>
+						</table>
+					{{/if}}
+				</div>
+				<!-- end of order summary -->
+			</div>
+			<form role="form" class="col-xs-12 col-sm-8 col-md-4">
+				<input type='submit' id = "form2" value="Order" class="btn btn-primary">
+			</form>
+			<!-- end of menu -->
+		</div>
+		<!-- end of row / customer-->
+		{{/if}}
+
+
+	</div>
+</template>
+
+<!-- template for a dish display / customers-->
+<template name = "displayDish">
+	<div class="col-sm-4 col-lg-4 col-md-4">
+		<div class="thumbnail">
+			<img src="{{dish_image}}" alt="" height=200>
+			<div class="caption">
+				<h4 class="pull-right">SGD {{dish_price}}</h4>
+				<h4><a href="#">{{dish_name}}</a>
+				</h4>
+				<p>{{dish_category}}</p>
+			</div>
+
+			<div class="input-group quantity">
+				<span class="input-group-btn">
+					<button type="button" class="quantity-left-minus btn btn-number disabled"  data-type="minus" data-field="">
+						<span class='glyphicon glyphicon-chevron-left'></span>
+					</button>
+				</span>
+				<input type="text" id="quantity{{id}}" name="quantity" class="form-control input-number" value="0" min="0" max="100">
+				<span class="input-group-btn">
+					<button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
+						<span class='glyphicon glyphicon-chevron-right'></span>
+					</button>
+				</span>
+				<button type="button" class="add-order btn btn-number disabled" data-type="" data-field="">Add to order</button>
+			</div>
+		</div>
+	</div>
+</template>
+
+
+<template name = 'displayDishAdmin'>
+	<form role = 'form'>
+		<input type = 'text' name = 'name' value = "{{dish_name}}" readonly>
+		<input type = 'text' name = 'price' value = "{{dish_price}}" readonly>
+		<input type = 'text' name = 'cat' value = "{{dish_category}}" readonly>
+		<input type = 'text' name = 'url' value = "{{dish_image}}" readonly>
+
+		<p><img src = "{{dish_image}}" style = "width: 30%"></p>
+		<button value="Update" class = 'form3'>Update</button>
+		<button  value="Update" class = 'form4 hide'>Confirm</button>
+		<br><br>
+	</form>
+</template>
+
+
