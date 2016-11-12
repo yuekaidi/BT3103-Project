@@ -94,9 +94,16 @@ Template.dashboard.events({
 
 });
 
+Template.coupon.helpers({
 
+    allCoupons() {
+        return Coupon.find({});
+    },
 
-
+    customers() {
+        return Member.find({admin: false}); //return only customers
+    }
+});
 
 
 

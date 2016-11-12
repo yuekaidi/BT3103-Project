@@ -27,6 +27,8 @@ Template.register.events({
         var firstname = $('[name=firstname]').val();
         var lastname = $('[name=lastname]').val();
         var gender = $('[name=gender]').val();
+        var coupon = Coupon.findOne({coupon_name: "New Coming 5% Discount"});
+
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
             email: email,
@@ -36,7 +38,8 @@ Template.register.events({
                 alert("Error!");
                 console.log(error); // Output error if registration fails
             } else {
-                Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, [], false);
+                Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, coupon, false);
+                Meteor.call('update_coupon', Meteor.userId(), false);
                 Router.go("home"); // Redirect user if registration succeeds
             }
         });

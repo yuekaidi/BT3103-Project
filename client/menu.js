@@ -95,7 +95,7 @@ Template.menu.events({
         $('[name=url]').val("");
     },
 
-    'submit #form2': function () {
+    'click #form2': function () {
 
         event.preventDefault();
         console.log("click on order button");

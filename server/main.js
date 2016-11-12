@@ -5,8 +5,7 @@ import { Order, Member, Coupon, Menu } from '../api/database.js';
 Meteor.startup(() => {
   // code to run on server at startup
   Menu.remove({});
-  //Member.remove({});
-  //Order.remove({});
+  Coupon.remove({});
   
   const dummyMenu1 = {
   	_id : new Meteor.Collection.ObjectID(),
@@ -33,6 +32,21 @@ Meteor.startup(() => {
   Menu.insert(dummyMenu1);
   Menu.insert(dummyMenu2);
   Menu.insert(dummyMenu3);
+
+  const dummyCoupon1 = {
+    _id: new Meteor.Collection.ObjectID(),
+    coupon_name: "New Coming 5% Discount",
+    coupon_discount: 0.95,
+  };
+
+  const dummyCoupon2 = {
+    _id: new Meteor.Collection.ObjectID(),
+    coupon_name: "Loyalty 10% Discount",
+    coupon_discount: 0.9,
+  };
+
+  Coupon.insert(dummyCoupon1);
+  Coupon.insert(dummyCoupon2);
 /*
   const dummyMember1 = {
   	_id: new Meteor.Collection.ObjectID(),
@@ -62,9 +76,20 @@ Meteor.methods({
 	                    firstname: firstname,
 	                    lastname: lastname,
 	                    gender: gender,
-	                    coupon: [],
+	                    coupon: coupon,
 	                    admin: admin
 	                }); 
+    console.log("New User Registration Complete!");
+    },
+
+    'update_coupon' (id, consumed) {
+      var coupon = Member.find({_id: id}).fetch()[0].coupon;
+      coupon.consumed = consumed;
+      var date = new Date();
+      coupon.issue_date =  date;
+      coupon.expiration_date = date  + 7 * (24 * 60 * 60 * 1000);
+      Member.update({_id: id}, {$set: {coupon: coupon}});
+      //Member.update({_id: id}, {$push: {coupon_info: {consumed: consumed, issue_date: new Date(), expiration_date: Date.now() + 7 * (24 * 60 * 60 * 1000)}}});
     },
 
     'update_admin_true' (id) {
@@ -83,6 +108,7 @@ Meteor.methods({
         dish_category: cat, 
         dish_image: url,
       });
+      console.log("New Dish inserted!");
     },
 
     'update_dish' (id, name, price, cat, url) {
@@ -92,6 +118,7 @@ Meteor.methods({
         dish_category: cat, 
         dish_image: url,
       });
+      console.log("Dish updated!");
     },
  
 
