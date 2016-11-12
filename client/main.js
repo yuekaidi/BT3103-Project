@@ -14,12 +14,15 @@ Template.navigation.events({
     'click .logout': function(event){
         event.preventDefault();
         Meteor.logout();
+        console.log("log out");
         Router.go('home');
     },
 });
 
 Template.navigation.helpers({
-	admin() {
-        return Member.findOne({_id:Meteor.userId()});
+	isAdmin() {
+        var member = Member.find({_id: Meteor.userId()}).fetch();
+        console.log(member[0].admin);
+        return member[0].admin;
     },
 });

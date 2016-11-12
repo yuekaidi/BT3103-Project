@@ -20,6 +20,12 @@ Session.setDefault("createOrderId", "");
 
 
 Template.menu.helpers({
+    isAdmin() {
+        var member = Member.find({_id: Meteor.userId()}).fetch();
+        console.log(member[0].admin);
+        return member[0].admin;
+    },
+
     allDishes() {
         return Menu.find();
     },
@@ -72,7 +78,24 @@ Template.menu.events({
         }
     },
 
-    'submit form': function () {
+    //green
+    'click #form1': function(template) {
+        event.preventDefault();
+        console.log("clicked");
+        var name = $('[name=name]').val();
+        var price = $('[name=price]').val();
+        var cat = $('[name=cat]').val();
+        var url = $('[name=url]').val();
+
+        Meteor.call('insert_dish', name, price, cat, url);
+        //reset
+        $('[name=name]').val("");
+        $('[name=price]').val("");
+        $('[name=cat]').val("");
+        $('[name=url]').val("");
+    },
+
+    'submit #form2': function () {
 
         event.preventDefault();
         console.log("click on order button");
@@ -95,8 +118,6 @@ Template.menu.events({
         Router.go('order');
 
     },
-
-
 
 });
 
@@ -139,6 +160,36 @@ Template.displayDish.events({
             template.$('.add-order').addClass('disabled');
         }
     },
+
+});
+
+Template.displayDishAdmin.events({
+
+    'click .form3': function (event, template) {
+        event.preventDefault();
+        console.log("clicked");
+        console.log(this._id);
+
+        template.$('input').prop('readonly', false);
+        template.$('.form3').addClass('hide');
+        template.$('.form4').removeClass('hide');
+
+    },
+
+    'click .form4': function(event, template) {
+        event.preventDefault();
+        console.log("clicked");
+
+        var name = template.$('[name=name]').val();
+        var price = template.$('[name=price]').val();
+        var cat = template.$('[name=cat]').val();
+        var url = template.$('[name=url]').val();
+
+        Meteor.call('update_dish', this._id, name, price, cat, url);
+        template.$('input').prop('readonly', true);
+        template.$('.form4').addClass('hide');
+        template.$('.form3').removeClass('hide');
+    }
 
 });
 

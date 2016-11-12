@@ -1,6 +1,38 @@
 <template name="menu">		
 	<div class="container with-background">
 		<h2 class="center">Menu</h2>
+		<!-- for admin / add/update/delete menu -->
+		{{#if isAdmin}}
+		<div class='row'>
+			<div class="wrapper">
+				<div>Add Dish</div>
+				<br>
+
+				<form role='form'>
+					<input type = 'text' placeholder='dish name' name='name' required >
+					<br>
+					<input type = 'text' placeholder='dish price' name='price' required >
+					<br>
+					<input type = 'text' placeholder='dish category' name='cat' required >
+					<br>
+					<input type = 'text' placeholder='dish image uul' name='url' required >
+					<br>
+					<input type='submit' id = "form1" value="Create">
+				</form>
+
+			</div>
+
+			<div>
+				<div class="row">
+					{{#each allDishes}}
+					{{>displayDishAdmin}}
+					{{/each}}
+				</div>
+			</div>
+		</div>
+
+
+		{{else}}
 		<div class="row">
 			<div class="col-md-12">
 				<div class="row">
@@ -8,7 +40,7 @@
 					{{>displayDish}}
 					{{/each}}
 				</div>
-
+				<!-- display ordered items -->
 				<div class="row">
 					{{#if selected}}
 						<h3>Order Summary</h3>
@@ -43,14 +75,21 @@
 						</table>
 					{{/if}}
 				</div>
+				<!-- end of order summary -->
 			</div>
 			<form role="form" class="col-xs-12 col-sm-8 col-md-4">
-				<input type='submit' value="Order" class="btn btn-primary">
+				<input type='submit' id = "form2" value="Order" class="btn btn-primary">
 			</form>
+			<!-- end of menu -->
 		</div>
+		<!-- end of row / customer-->
+		{{/if}}
+
+
 	</div>
 </template>
 
+<!-- template for a dish display / customers-->
 <template name = "displayDish">
 	<div class="col-sm-4 col-lg-4 col-md-4">
 		<div class="thumbnail">
@@ -79,3 +118,20 @@
 		</div>
 	</div>
 </template>
+
+
+<template name = 'displayDishAdmin'>
+	<form role = 'form'>
+		<input type = 'text' name = 'name' value = "{{dish_name}}" readonly>
+		<input type = 'text' name = 'price' value = "{{dish_price}}" readonly>
+		<input type = 'text' name = 'cat' value = "{{dish_category}}" readonly>
+		<input type = 'text' name = 'url' value = "{{dish_image}}" readonly>
+
+		<p><img src = "{{dish_image}}" style = "width: 30%"></p>
+		<button value="Update" class = 'form3'>Update</button>
+		<button  value="Update" class = 'form4 hide'>Confirm</button>
+		<br><br>
+	</form>
+</template>
+
+

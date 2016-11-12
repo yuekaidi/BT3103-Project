@@ -33,6 +33,7 @@ Template.register.events({
             password: password, 
         }, function(error){
             if(error){
+                alert("Error!");
                 console.log(error); // Output error if registration fails
             } else {
                 Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, [], false);
@@ -50,6 +51,7 @@ Template.login.events({
         Meteor.loginWithPassword(email, password, function(err){
             if(err){
                 console.log(err);
+                alert("Error!");
                 return false;
             }
             else{
@@ -63,8 +65,5 @@ Template.login.onRendered(function(){
     $('.login').validate();
 });
 
-Template.login.helpers({
-
-});
 
 
