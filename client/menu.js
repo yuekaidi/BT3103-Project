@@ -17,8 +17,15 @@ Session.setDefault("createOrderId", "");
 // db.menu.insert({ "_id" : 1001, "dish_name" : "Fried Rice", "dish_category" : "Main", "dish_price" : 9.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Xin-Wang-0006.jpg" })
 // db.menu.insert({ "_id" : 1002, "dish_name" : "Salmon Spaghetti", "dish_category" : "Main", "dish_price" : 12.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/pasta1.jpg" })
 // db.menu.insert({ "_id" : 1003, "dish_name" : "Papaya Soup Pork Chop", "dish_category" : "Main", "dish_price" : 8.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Papaya-Soup_Pork-Chop.jpg" })
+
 if (Meteor.isCordova || Meteor.isClient) {
 Template.menu.helpers({
+    isAdmin() {
+        var member = Member.find({_id: Meteor.userId()}).fetch();
+        console.log(member[0].admin);
+        return member[0].admin;
+    },
+
     allDishes() {
         return Menu.find();
     },
@@ -71,7 +78,24 @@ Template.menu.events({
         }
     },
 
-    'submit form': function () {
+    //green
+    'click #form1': function(template) {
+        event.preventDefault();
+        console.log("clicked");
+        var name = $('[name=name]').val();
+        var price = $('[name=price]').val();
+        var cat = $('[name=cat]').val();
+        var url = $('[name=url]').val();
+
+        Meteor.call('insert_dish', name, price, cat, url);
+        //reset
+        $('[name=name]').val("");
+        $('[name=price]').val("");
+        $('[name=cat]').val("");
+        $('[name=url]').val("");
+    },
+
+    'click #form2': function () {
 
         event.preventDefault();
         console.log("click on order button");
@@ -95,22 +119,15 @@ Template.menu.events({
 
     },
 
-
-
-});
-
-Template.displayDish.helpers({
-    id() {
-        return this._id;
-    }
 });
 
 Template.displayDish.events({
 
+    //green
     'click .add-order': function(event, template) {
 
         var id = this._id;
-        var quantity = parseInt($('#quantity' + id).val());   
+        var quantity = parseInt(template.$('[name=quantity]').val());  
 
         if (quantity > 0) {
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
@@ -122,29 +139,57 @@ Template.displayDish.events({
         }
     },
 
+    //gree
     'click .quantity-right-plus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
-        // Get the field name
-        var id = this._id;
-        var quantity = parseInt($('#quantity' + id).val());        
-        // If is not undefined           
-            $('#quantity' + id).val(quantity + 1);
-            // Increment 
+        //console.log("clicked");                
+        template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) + 1);
+        template.$('.btn').removeClass('disabled');
+        template.$('.add-order').removeClass('disabled');
     },
 
+    //green
     'click .quantity-left-minus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
-        // Get the field name
-        var id = this._id;
-        var quantity = parseInt($('#quantity' + id).val());  
-        // If is not undefined
-            // Increment
-            if(quantity>0){ 
-                $('#quantity' + id).val(quantity - 1);
-            }
+        //console.log("clicked");
+        template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
+        if(parseInt(template.$('[name=quantity]').val()) == 0){
+            template.$('.quantity-left-minus').addClass('disabled');
+            template.$('.add-order').addClass('disabled');
+        }
     },
+
+});
+
+Template.displayDishAdmin.events({
+
+    'click .form3': function (event, template) {
+        event.preventDefault();
+        console.log("clicked");
+        console.log(this._id);
+
+        template.$('input').prop('readonly', false);
+        template.$('.form3').addClass('hide');
+        template.$('.form4').removeClass('hide');
+
+    },
+
+    'click .form4': function(event, template) {
+        event.preventDefault();
+        console.log("clicked");
+
+        var name = template.$('[name=name]').val();
+        var price = template.$('[name=price]').val();
+        var cat = template.$('[name=cat]').val();
+        var url = template.$('[name=url]').val();
+
+        Meteor.call('update_dish', this._id, name, price, cat, url);
+        template.$('input').prop('readonly', true);
+        template.$('.form4').addClass('hide');
+        template.$('.form3').removeClass('hide');
+    }
 
 });
 

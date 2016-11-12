@@ -94,10 +94,31 @@ Template.dashboard.events({
 
 });
 
+Template.coupon.helpers({
 
+    allCoupons() {
+        return Coupon.find({});
+    },
 
+    customers() {
+        return Member.find({admin: false}); //return only customers
+    }
+});
 
+Template.coupon.events({
 
+    'click .coupon1': function () {
+        event.preventDefault();
+        console.log("clicked");
+
+        var name = $('[name=name]').val();
+        var rate = $('[name=rate]').val();
+
+        Meteor.call('create_coupon', name, rate);
+        $('[name=name]').val("");
+        $('[name=rate]').val("");
+    },
+});
 
 
 

@@ -10,16 +10,18 @@
 
 <body>
 </body>
+
 <template name="main">
 	{{> navigation}}
 	{{> yield}}
+
 	<footer>
-    <div class="row">
-        <div class="col-lg-12">
-            <p>BT3103 Project 2016, Copyright  &copy; TeamAwesome</p>
-        </div>
-    </div>
-</footer>
+	    <div class="row">
+	        <div class="col-lg-12">
+	            <p>BT3103 Project 2016, Copyright  &copy; TeamAwesome</p>
+	        </div>
+	    </div>
+	</footer>
 </template>
 
 <template name="home">
@@ -41,29 +43,35 @@
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
 				<ul class="nav navbar-nav">
 					<li><a href="{{pathFor route='menu'}}">Menu</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
 					<li><a href="{{pathFor route='outlets'}}">Outlets</a></li>
 				</ul>
-				{{#if admin.admin}}
-					<li><a href="{{pathFor route='admin'}}">Admin</a></li>
-				{{else}}
-					{{#if currentUser}}
-					<ul class="nav navbar-nav">
-						<li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
-						
-					</ul>
+				{{#if currentUser}}
+					{{#if isAdmin}}
+						<ul class="nav navbar-nav">
+							<li><a href="{{pathFor route='coupon'}}">Coupon</a></li>
+						</ul>
+					{{else}}
+						<ul class="nav navbar-nav">
+							<li><a href="{{pathFor route='dashboard'}}">User Dashboard</a></li>
+						</ul>
+					{{/if}}
+
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="{{pathFor route='profile'}}">{{profile}}</a></li>
 						<li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 					</ul>
-					{{else}}
+				{{else}}
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="{{pathFor route='register'}}">Sign Up</a></li>
 						<li><a href="{{pathFor route='login'}}">Login</a></li>
 					</ul>
-					{{/if}}
 				{{/if}}
+
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
