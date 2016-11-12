@@ -5,15 +5,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>Xin Wang</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
-    <script src="../vendor/raphael/raphael.min.js"></script>
-    <script src="../vendor/morrisjs/morris.min.js"></script>
-    <script src="../data/morris-data.js"></script>
+	<!-- // <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 </head>
 
 <body>
@@ -31,11 +23,11 @@
 </template>
 
 <template name="home">
-	<img src="https://shangzhenlin.files.wordpress.com/2012/08/img_2694.jpg" alt="" width=100%>
+
 </template>
 
 <template name="navigation">
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<nav class="no-margin navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -62,6 +54,7 @@
 						
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{{pathFor route='profile'}}">{{profile}}</a></li>
 						<li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 					</ul>
 					{{else}}

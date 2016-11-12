@@ -10,11 +10,11 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="firstname" id="firstname" class="form-control input-lg" placeholder="First Name">
+                                <input required type="text" name="firstname" id="firstname" class="form-control input-lg" placeholder="First Name">
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div required class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <input type="text" name="lastname" id="lastname" class="form-control input-lg" placeholder="Last Name">
                             </div>
@@ -22,42 +22,40 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email">
+                        <input required type="email" name="email" id="email" class="form-control input-lg" placeholder="Email">
                     </div>
 
                     <div class="form-group">
-                        <input type="reenteremail" name="reenteremail" id="reenteremail" class="form-control input-lg" placeholder="Re-enter Email">
+                        <input required type="reenteremail" name="reenteremail" id="reenteremail" class="form-control input-lg" placeholder="Re-enter Email">
                     </div>
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                                <input required type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password">
+                                <input required type="password" name="confirm_password" id="confirm_password" class="form-control input-lg" placeholder="Confirm Password">
                             </div>
                         </div>
                     </div>
 
                     <div class="row form-group">   
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <label for="">Gender</label>
-                        </div> 
                         <div class="btn-group radio-group col-xs-12 col-sm-9 col-md-9">
-                            <label class="male btn btn-primary not-active">Male <input type="radio" value="M" name="gender"></label>
-                            <label class="female btn btn-primary not-active">Female <input type="radio" value="F" name="gender"></label>
+                            <label class="male gender btn btn-primary not-active">Male <input required type="radio" value="M" name="gender"></label>
+                            <label class="female gender btn btn-primary not-active">Female <input type="radio" value="F" name="gender"></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
+                        {{error}}
                         <input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7">
                     </div>
 
-                    <p><a href="{{pathFor route='login'}}">Already Have Account?</a> OR <a href="#">Login with Fackbook</a></p>
+                    <p><a href="{{pathFor route='login'}}">Already Have Account?</a> OR <a href="#">Login with Facebook</a></p>
 
                 </form>
             </div>
@@ -82,6 +80,7 @@
                         <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="2">
                     </div>
                     <div class="form-group">
+                        {{error}}
                         <input type="submit" value="Login" class="btn btn-primary btn-block btn-lg" tabindex="3">
                     </div>
                     <p>Don't have account? <a href="{{pathFor route='register'}}">Sign up</a></p>

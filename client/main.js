@@ -19,5 +19,9 @@ Template.navigation.events({
 Template.navigation.helpers({
 	admin() {
         return Member.findOne({_id:Meteor.userId()});
+    },
+
+    profile() {
+    	return Member.findOne({_id:Meteor.userId()}).firstname;
     }
 })
