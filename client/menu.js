@@ -126,12 +126,10 @@ Template.displayDish.events({
     'click .quantity-right-plus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
+        console.log("clicked");
         // Get the field name
-        var id = this._id;
-        var quantity = parseInt($('#quantity' + id).val());        
-        // If is not undefined           
-            $('#quantity' + id).val(quantity + 1);
-            // Increment 
+        var quantity = parseInt($('[name=quantity]').val());                
+        $('[name=quantity]').val(quantity + 1);
     },
 
     'click .quantity-left-minus': function(event, template) {
