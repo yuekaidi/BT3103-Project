@@ -105,6 +105,20 @@ Template.coupon.helpers({
     }
 });
 
+Template.coupon.events({
+
+    'click .coupon1': function () {
+        event.preventDefault();
+        console.log("clicked");
+
+        var name = $('[name=name]').val();
+        var rate = $('[name=rate]').val();
+
+        Meteor.call('create_coupon', name, rate);
+        $('[name=name]').val("");
+        $('[name=rate]').val("");
+    },
+});
 
 
 

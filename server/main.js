@@ -82,12 +82,11 @@ Meteor.methods({
     console.log("New User Registration Complete!");
     },
 
-    'update_coupon' (id, consumed) {
-      var coupon = Member.find({_id: id}).fetch()[0].coupon;
-      coupon.consumed = consumed;
+    'update_coupon' (coupon, consumed, days) {
+
       var date = new Date();
       coupon.issue_date =  date;
-      coupon.expiration_date = date  + 7 * (24 * 60 * 60 * 1000);
+      coupon.expiration_date = date  + days * (24 * 60 * 60 * 1000);
       Member.update({_id: id}, {$set: {coupon: coupon}});
       //Member.update({_id: id}, {$push: {coupon_info: {consumed: consumed, issue_date: new Date(), expiration_date: Date.now() + 7 * (24 * 60 * 60 * 1000)}}});
     },
@@ -119,6 +118,15 @@ Meteor.methods({
         dish_image: url,
       });
       console.log("Dish updated!");
+    },
+
+    'create_coupon' (name, rate) {
+      Coupon.insert({
+        _id: new Meteor.Collection.ObjectID(),
+        coupon_name: name, 
+        coupon_discount: rate,
+      });
+      console.log("New coupon created!");
     },
  
 

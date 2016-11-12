@@ -39,7 +39,7 @@ Template.register.events({
                 console.log(error); // Output error if registration fails
             } else {
                 Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, coupon, false);
-                Meteor.call('update_coupon', Meteor.userId(), false);
+                Meteor.call('update_coupon', coupon, false, 7);
                 Router.go("home"); // Redirect user if registration succeeds
             }
         });
