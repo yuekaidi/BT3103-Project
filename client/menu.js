@@ -18,6 +18,7 @@ Session.setDefault("createOrderId", "");
 // db.menu.insert({ "_id" : 1002, "dish_name" : "Salmon Spaghetti", "dish_category" : "Main", "dish_price" : 12.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/pasta1.jpg" })
 // db.menu.insert({ "_id" : 1003, "dish_name" : "Papaya Soup Pork Chop", "dish_category" : "Main", "dish_price" : 8.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Papaya-Soup_Pork-Chop.jpg" })
 
+
 Template.menu.helpers({
     allDishes() {
         return Menu.find();
