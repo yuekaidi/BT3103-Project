@@ -126,23 +126,18 @@ Template.displayDish.events({
     'click .quantity-right-plus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
-        console.log("clicked");
-        // Get the field name
-        var quantity = parseInt($('[name=quantity]').val());                
-        $('[name=quantity]').val(quantity + 1);
+        //console.log("clicked");                
+        template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) + 1);
+        template.$('.btn').removeClass('disabled');
     },
 
     'click .quantity-left-minus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
-        // Get the field name
-        var id = this._id;
-        var quantity = parseInt($('#quantity' + id).val());  
-        // If is not undefined
-            // Increment
-            if(quantity>0){ 
-                $('#quantity' + id).val(quantity - 1);
-            }
+        //console.log("clicked");
+        template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
+        if(parseInt(template.$('[name=quantity]').val()) == 0)
+            template.$('.quantity-left-minus').addClass('disabled');
     },
 
 });
