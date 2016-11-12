@@ -100,18 +100,13 @@ Template.menu.events({
 
 });
 
-Template.displayDish.helpers({
-    id() {
-        return this._id;
-    }
-});
-
 Template.displayDish.events({
 
+    //green
     'click .add-order': function(event, template) {
 
         var id = this._id;
-        var quantity = parseInt($('#quantity' + id).val());   
+        var quantity = parseInt(template.$('[name=quantity]').val());  
 
         if (quantity > 0) {
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
@@ -123,21 +118,26 @@ Template.displayDish.events({
         }
     },
 
+    //gree
     'click .quantity-right-plus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
         //console.log("clicked");                
         template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) + 1);
         template.$('.btn').removeClass('disabled');
+        template.$('.add-order').removeClass('disabled');
     },
 
+    //green
     'click .quantity-left-minus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
         //console.log("clicked");
         template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
-        if(parseInt(template.$('[name=quantity]').val()) == 0)
+        if(parseInt(template.$('[name=quantity]').val()) == 0){
             template.$('.quantity-left-minus').addClass('disabled');
+            template.$('.add-order').addClass('disabled');
+        }
     },
 
 });

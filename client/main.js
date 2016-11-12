@@ -8,16 +8,18 @@ import './main.html';
 import './login.js';
 import '/lib/routing.js';
 
+
+
 Template.navigation.events({
     'click .logout': function(event){
         event.preventDefault();
         Meteor.logout();
         Router.go('home');
-    }
+    },
 });
 
 Template.navigation.helpers({
 	admin() {
         return Member.findOne({_id:Meteor.userId()});
-    }
-})
+    },
+});

@@ -6,6 +6,7 @@ Meteor.startup(() => {
   // code to run on server at startup
   Menu.remove({});
   Member.remove({});
+  Order.remove({});
   
   const dummyMenu1 = {
   	_id : new Meteor.Collection.ObjectID(),
@@ -28,18 +29,41 @@ Meteor.startup(() => {
   	dish_price : 8.5, 
   	dish_image : "http://xinwang.com.sg/wp-content/uploads/2014/07/Papaya-Soup_Pork-Chop.jpg",
   };
-  const dummyMember  = {
-  	_id: new Meteor.Collection.ObjectID(),
-  	email: "test@t.t",
-
-  };
 
   Menu.insert(dummyMenu1);
   Menu.insert(dummyMenu2);
   Menu.insert(dummyMenu3);
-  
+
+  const dummyMember1 = {
+  	_id: new Meteor.Collection.ObjectID(),
+  	email: "admin@abc.com",
+  	password: "abc",
+  	firstname: "Admin",
+  	lastname: "Admin",
+  	gender: "F",
+  	coupon: [],
+  	admin: true,
+  };
+
+  Member.insert(dummyMember1);
+
+  /*Accounts.createUser({
+  	email: "admin@abc.com",
+	password: "abc",
+  });*/
+ 
 });
 
 Meteor.methods({
 	//extra methods
+	'insert' (id, firstname, lastname, gender, coupon, admin) {
+		Member.insert({
+	                    _id: id,
+	                    firstname: firstname,
+	                    lastname: lastname,
+	                    gender: gender,
+	                    coupon: [],
+	                    admin: admin
+	                });
+    }
 });

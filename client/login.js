@@ -30,23 +30,12 @@ Template.register.events({
         // fetch by Meteor.users.find().fetch();
         Accounts.createUser({
             email: email,
-            password: password
+            password: password, 
         }, function(error){
             if(error){
                 console.log(error); // Output error if registration fails
             } else {
-                Member.insert({
-                    _id: Meteor.userId(),
-                    email: email,
-                    firstname: firstname,
-                    lastname: lastname,
-                    gender: gender,
-                    memberId: null,
-                    authenticated: null,
-                    coupon75: null,
-                    coupon100: null,
-                    admin: false
-                });
+                Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, [], false);
                 Router.go("home"); // Redirect user if registration succeeds
             }
         });
