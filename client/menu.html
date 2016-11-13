@@ -96,7 +96,9 @@
 <!-- Display Avalable Coupon-->
 <template name = 'displayAvailabeCoupon'>
 	<!-- Dummy -->
-	<p><input type = 'radio' class='rate' name = 'rate' value = '0.95'> Basic 5% Discount</p>
+	{{#each i in couponName}}
+		<p><input type = 'radio' class='rate' name = 'rate' value = '{{i.coupon_discount}}'> {{i.coupon_name}}</p>
+	{{/each}}
 	<!-- <p><input type = 'radio' name = 'rate' value = '0.95'> 10% Discount</p> -->
 </template>
 

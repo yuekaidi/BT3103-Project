@@ -133,6 +133,14 @@ Template.displayDish.events({
 
 });
 
+Template.displayAvailabeCoupon.helpers({
+
+    couponName() {
+        var coupon = Member.find({_id: Meteor.userId()}).fetch()[0].coupon;
+        return coupon;
+    }
+});
+
 Template.displayAvailabeCoupon.events({
 
     'click .rate': function(event, template) {
