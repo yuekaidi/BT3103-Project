@@ -134,7 +134,13 @@
 <template name = 'displayCustomer'>
     <td>{{lastname}}, {{firstname}}</td>
     <td>{{gender}}</td>
-    <td>{{coupon.coupon_name}} (Consumed?: {{#if coupon.consumed }}"Yes"{{else}}"No"{{/if}}) <a href = "#" id = 'showIssueCoupon'>Issue a Coupon</a></td>
+    <td>
+        {{#each i in coupon}}
+            <li>{{i.coupon_name}}</li>
+        {{/each}}
+
+        <a href = "#" id = 'showIssueCoupon'>Issue a Coupon</a>
+    </td>
 
     <!-- Modal on Coupon Issuation -->
     <div class="modal fade" id="issueCoupon">

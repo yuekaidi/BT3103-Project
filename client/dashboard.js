@@ -145,6 +145,12 @@ Template.displayCustomer.events({
 
         Meteor.call('issue_coupon', this._id, name, rate, des, exp);
         console.log('Coupon Issued!');
+
+        //reset
+        template.$('[name=name]').val("");
+        template.$('[name=rate]').val("");
+        template.$('[name=description]').val("");
+        template.$('[name=expire]').val("");
     }
 });
 
