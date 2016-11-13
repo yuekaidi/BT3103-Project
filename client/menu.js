@@ -143,10 +143,11 @@ Template.displayAvailabeCoupon.helpers({
 
 Template.displayAvailabeCoupon.events({
 
-    'click .rate': function(event, template) {
+    'click #rate': function(event, template) {
         //event.preventDefault();
         console.log('clicked');
-        var rate = template.$('[name=rate]').val();
+        var rate = template.find('input:radio[name=rate]:checked').value; //
+        console.log("rate is: ", rate);
         
         Session.set('discountAmount', (Session.get('amt')*rate).toFixed(2));
     },

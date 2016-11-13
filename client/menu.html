@@ -95,11 +95,11 @@
 
 <!-- Display Avalable Coupon-->
 <template name = 'displayAvailabeCoupon'>
-	<!-- Dummy -->
 	{{#each i in couponName}}
-		<p><input type = 'radio' class='rate' name = 'rate' value = '{{i.coupon_discount}}'> {{i.coupon_name}}</p>
+		<div >
+			<input type = 'radio' id='rate' name = 'rate' value = '{{i.coupon_discount}}'> {{i.coupon_name}} <br>
+		</div>
 	{{/each}}
-	<!-- <p><input type = 'radio' name = 'rate' value = '0.95'> 10% Discount</p> -->
 </template>
 
 <!-- template for a dish display / customers-->
