@@ -107,7 +107,7 @@ Template.coupon.helpers({
 
 Template.coupon.events({
 
-    'click .coupon1': function () {
+    'click .coupon1': function (event, template) {
         event.preventDefault();
         console.log("clicked");
 
@@ -115,8 +115,8 @@ Template.coupon.events({
         var rate = $('[name=rate]').val();
 
         Meteor.call('create_coupon', name, rate);
-        $('[name=name]').val("");
-        $('[name=rate]').val("");
+        template.$('[name=name]').val("");
+        template.$('[name=rate]').val("");
     },
 });
 

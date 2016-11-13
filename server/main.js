@@ -37,18 +37,21 @@ Meteor.startup(() => {
     _id: "0050",
     coupon_name: "Basic 5% Off",
     coupon_discount: 0.95,
+    coupon_description: "New coming coupon. This coupon is eligible for the fist dinner with no other constrain.",
   };
 
   const coupon75 = {
     _id: "0075",
     coupon_name: "Intermediate 7.5% Off",
     coupon_discount: 0.925,
+    coupon_description: 'Intermediate discount. Eligible when dinning exceeds 150 dollars.',
   };
 
   const coupon10 = {
     _id: "0100",
     coupon_name: "Loyalty 10% Off",
     coupon_discount: 0.9,
+    coupon_description: 'Loyalty offer. Eligible when dinning exceeds 250 dollars.',
   };
 
   Coupon.insert(coupon5);
