@@ -107,7 +107,7 @@ Template.displayDish.events({
             Session.set("oriamt", Session.get("amt"));
             Session.set('discountAmount', Session.get('amt'));
 
-            dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_price: this.dish_price, quantity: quantity});
+            dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_category: this.dish_category, dish_price: this.dish_price, quantity: quantity});
             Session.set("dishname", dishname);
         }
     },
