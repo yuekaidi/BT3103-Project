@@ -125,7 +125,12 @@ Meteor.methods({
         dishes: dishes,
       });
       console.log('new order created!');
-    }
+    },
+
+    'issue_coupon' (id, name, rate, des, exp) {
+      Member.update({_id: id}, {$push: {coupon: {_id: new Meteor.Collection.ObjectID(), coupon_name: name, coupon_discount: rate, coupon_description: des, issue_date: new Date(), expiration_date: exp}}});
+      console.log("Coupon Created!");
+    },
  
 
 });

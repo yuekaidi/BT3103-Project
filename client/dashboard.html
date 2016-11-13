@@ -11,9 +11,7 @@
 
      <div class="barchart" id="chart">{{createChart}}</div>
 
-</div>s
-    <!-- <div class="leaderboard" id="leaderboard">{{> leaderboard}}</div> -->
-
+</div>
     <div class="row">
         <div>
             <div class="panel-group" id="accordion">
@@ -121,6 +119,7 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
     </div>
@@ -135,17 +134,33 @@
 <template name = 'displayCustomer'>
     <td>{{lastname}}, {{firstname}}</td>
     <td>{{gender}}</td>
-    <td>{{coupon.coupon_name}} (Consumed?: {{#if coupon.consumed }}"Yes"{{else}}"No"{{/if}})</td>
-</template>
+    <td>{{coupon.coupon_name}} (Consumed?: {{#if coupon.consumed }}"Yes"{{else}}"No"{{/if}}) <a href = "#" id = 'showIssueCoupon'>Issue a Coupon</a></td>
 
+    <!-- Modal on Coupon Issuation -->
+    <div class="modal fade" id="issueCoupon">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
 
-<!-- <template name = 'leaderboard'>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <h2>Top Dishes Ordered</h2>
-        {{#each topdish}}
-            {{dish_name}}
-            {{quantity}}
-        {{/each}}
-    </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Issue a Coupon</h4>
+                </div>
+                <form role = 'form'>
+                    <div class="modal-body">
+                        <input type="text" name = 'name' placeholder= "Coupon Name" required/>
+                        <input type="number" name = 'rate' placeholder= "Discount Rate" required/>
+                        <input type="text" name = 'description' placeholder= "Counpon Description" required/> 
+                        <input type = 'date' name = 'expire' required>
+                        <div>{{error}}</div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="issue" data-dismiss="modal">Issue</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>  
+
 </template>
--->

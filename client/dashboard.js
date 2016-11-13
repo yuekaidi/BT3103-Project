@@ -123,6 +123,31 @@ Template.coupon.events({
         template.$('[name=rate]').val("");
     },
 });
+
+Template.displayCustomer.events({
+
+    'click #showIssueCoupon': function(event, template) {
+        event.preventDefault();
+        console.log('click on customer id: ', this.firstname);
+
+        template.$('#issueCoupon').modal('show');
+    },
+
+    // issue a coupon
+    'click #issue': function(event, template) {
+        event.preventDefault();
+
+        console.log('issue a coupon');
+        var name = template.$('[name=name]').val();
+        var rate = template.$('[name=rate]').val();
+        var des = template.$('[name=description]').val();
+        var exp = template.$('[name=expire]').val();
+
+        Meteor.call('issue_coupon', this._id, name, rate, des, exp);
+        console.log('Coupon Issued!');
+    }
+});
+
 }
 
 
