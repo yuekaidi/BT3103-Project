@@ -3892,7 +3892,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-addon,
 .input-group-btn {
-  width: 1%;
+  width: 30px;
   white-space: nowrap;
   vertical-align: middle;
 }
@@ -6786,4 +6786,7 @@ button.close {
   float: right;
 }
 
-
+.quantity-left-minus, .quantity-right-plus {
+  padding: 0px 6px;
+  width: 40px;
+}
