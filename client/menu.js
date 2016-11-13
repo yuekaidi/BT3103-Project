@@ -46,7 +46,7 @@ Template.menu.helpers({
 Template.menu.events({
 
     //green
-    'click #form1': function(template) {
+    'submit #form1': function(template) {
         event.preventDefault();
         console.log("clicked");
         var name = $('[name=name]').val();
@@ -122,10 +122,11 @@ Template.displayDish.events({
         // Stop acting like a button
         event.preventDefault();
         //console.log("clicked");
-        template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
         if(parseInt(template.$('[name=quantity]').val()) == 0){
             template.$('.quantity-left-minus').addClass('disabled');
             template.$('.add-order').addClass('disabled');
+        } else {
+            template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
         }
     },
 

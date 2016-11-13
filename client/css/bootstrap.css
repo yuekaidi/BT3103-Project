@@ -6799,7 +6799,7 @@ button.close {
   width: 40px;
 }
 
-.acc {
+.acc, .dish {
   background: #FFFFFF;
   border-radius: 5px;
   border-width: 2px;
@@ -6808,7 +6808,7 @@ button.close {
   width: 144px;
 }
 
-.acc[readonly] {
+.acc[readonly], .dish[readonly]{
   background: transparent;
   border-width: 0px;
 }

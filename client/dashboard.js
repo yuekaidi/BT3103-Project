@@ -58,7 +58,7 @@ Template.dashboard.helpers({
 
                 series: [{
                     type: 'column',
-                    name: 'Time of Orders',
+                    name: 'Payable amount',
                     data: orderInfo,
                 },
                 ],
