@@ -6775,11 +6775,14 @@ button.close {
 
 .coupon .title {
   color: #358E96;
-  font-size: 84px;
+  font-size: 48px;
   font-weight: bolder;
 }
 
 .coupon .detail {
+}
+
+.coupon .date {
   float: right;
 }
 

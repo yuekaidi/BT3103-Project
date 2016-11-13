@@ -115,7 +115,7 @@ Template.menu.events({
         dishname = [];
 
         //console.log("inserted");
-        Router.go('order');
+        Router.go('profile');
 
     },
 

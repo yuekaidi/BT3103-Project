@@ -37,21 +37,21 @@ Meteor.startup(() => {
     _id: "0050",
     coupon_name: "Basic 5% Off",
     coupon_discount: 0.95,
-    coupon_description: "New coming coupon. This coupon is eligible for the fist dinner with no other constrain.",
+    coupon_description: "With purchase of any meal. \n This discount will be automatic in your orders.",
   };
 
   const coupon75 = {
     _id: "0075",
-    coupon_name: "Intermediate 7.5% Off",
+    coupon_name: "Alluring 7.5% Off",
     coupon_discount: 0.925,
-    coupon_description: 'Intermediate discount. Eligible when dinning exceeds 150 dollars.',
+    coupon_description: 'with purshase of above 20 dollars. \n The coupon is valid for 30 days.',
   };
 
   const coupon10 = {
     _id: "0100",
     coupon_name: "Loyalty 10% Off",
     coupon_discount: 0.9,
-    coupon_description: 'Loyalty offer. Eligible when dinning exceeds 250 dollars.',
+    coupon_description: 'with purshase of above 50 dollars. \n The coupon is valid for 30 days.',
   };
 
   Coupon.insert(coupon5);
