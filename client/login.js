@@ -78,7 +78,7 @@ if (Meteor.isCordova || Meteor.isClient) {
                         admin: false,
                         picture: "http://image.flaticon.com/icons/png/512/145/145863.png"
                     });
-                    if (gender == "F") {
+                    if (gender == "female") {
                         Member.update({_id: Meteor.userId()}, {$set:{picture: "http://image.flaticon.com/icons/svg/145/145852.svg"}});
                     }
                     Router.go("profile"); // Redirect user if registration succeeds

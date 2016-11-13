@@ -40,7 +40,7 @@ Template.dashboard.helpers({
         Meteor.defer(function() {
             Highcharts.chart('chart', {
                 title: {
-                    text: "Customer Each Order Amount",
+                    text: "Order Summary",
                 },
 
                 yAxis: {
@@ -54,6 +54,8 @@ Template.dashboard.helpers({
                     crosshair: true,
                 },
 
+                colors: ['#358E96'],
+
                 series: [{
                     type: 'column',
                     name: 'Time of Orders',
@@ -65,6 +67,7 @@ Template.dashboard.helpers({
         });//end of defer()
 
     } // end of createChart()
+
 
 });
 

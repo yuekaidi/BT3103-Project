@@ -6786,6 +6786,14 @@ button.close {
   float: right;
 }
 
+.coupon .center {
+  text-align: center;
+  color: #358E96;
+  font-size: 48px;
+  font-weight: bolder;
+  margin-top: 48px;
+}
+
 .quantity-left-minus, .quantity-right-plus {
   padding: 0px 6px;
   width: 40px;
