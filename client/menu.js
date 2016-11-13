@@ -66,10 +66,8 @@ Template.menu.events({
     'click #form2': function () {
 
         event.preventDefault();
-        console.log("click on order button");
-
-        // prevent empty order 
-        if(Session.get('amt') == 0 ){
+        //console.log("click on order button");
+        if(Session.get('amt') == 0 ){ // prevent empty order 
             alert('empty in basket');
             return 0;
         } else {
@@ -143,12 +141,10 @@ Template.displayAvailabeCoupon.helpers({
 
 Template.displayAvailabeCoupon.events({
 
+    //apply discount rate
     'click #rate': function(event, template) {
-        //event.preventDefault();
         console.log('clicked');
         var rate = template.find('input:radio[name=rate]:checked').value; //
-        console.log("rate is: ", rate);
-        
         Session.set('discountAmount', (Session.get('amt')*rate).toFixed(2));
     },
 });
