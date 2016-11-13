@@ -36,9 +36,9 @@ if (Meteor.isCordova || Meteor.isClient) {
   			var authcode = document.getElementById("code").value;
   			if (Authcode.findOne({_id: authcode})) {
   				var memberid = Authcode.findOne({_id: authcode}).memberid;
-  				console.log(memberid);
   				$('#activationModal').modal('hide');
   				Member.update({_id: Meteor.userId()}, {$set:{memberid: memberid, joindate: new Date()}});
+  				Authcode.remove({_id:authcode});
   			}
   			else {
   				Session.set('error', 'This activation code is not valid');
@@ -53,13 +53,13 @@ if (Meteor.isCordova || Meteor.isClient) {
 	        return Member.findOne({_id: Meteor.userId()});
 		},
 
-		member() {
-			return user.memberid;
-		},
-
 		error() {
 			return Session.get('error');
-		}
+		},
+
+		allOrders() {
+        	return Order.find({member_id: Meteor.userId()});
+    	},
 	});
 }
 

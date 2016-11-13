@@ -27,7 +27,6 @@ Template.navigation.helpers({
     
 	isAdmin() {
         var member = Member.find({_id: Meteor.userId()}).fetch();
-        console.log(member[0].admin);
         return member[0].admin;
     },
 });

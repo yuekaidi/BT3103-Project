@@ -44,7 +44,7 @@
 							<p>Email: {{user.email}} </p>
 							<p>Name: {{user.firstname}} </p>
 							<p>Gender: {{user.gender}}</p>
-							<p>Member ID: {{#if member}}{{member}}{{else}}<a href="#" id='add'>activate membership</a>{{/if}}</p>
+							<p>Member ID: {{#if (user.memberid)}}{{user.memberid}}{{else}}<a href="#" id='add'>activate membership</a>{{/if}}</p>
 							<a href="" >Edit</a>
 
 							<div class="modal fade" id="activationModal">
@@ -84,13 +84,77 @@
 
 					</div>
 					<div class="tab-pane fade in" id="tab2">
-						<h3>This is tab 2</h3>
+						{{#if (user.memberid)}}
+							<div class="col-lg-5 col-sm-5 coupon">
+								<div class="title">5% off</div>
+								<div class="detail">Experiy Date: as long as you are a member!</div>
+								
+							</div>
+						{{else}}
+							<a href="#" id='add'>Get your membership today to enjoy the coupons!</a>
+						{{/if}}
+
+						{{#if (user.coupon75)}}
+							<div class="col-lg-5 col-sm-5 coupon">
+								<div class="title">7.5% off</div>
+								<div class="detail">Experiy Date: {{user.coupon75}}</div>
+								
+							</div>
+						{{/if}}
+
+						{{#if (user.coupon100)}}
+							<div class="col-lg-5 col-sm-5 coupon">
+								<div class="title">10% off</div>
+								<div class="detail">Experiy Date: {{user.coupon100}}</div>
+								
+							</div>
+						{{/if}}
 					</div>
 					<div class="tab-pane fade in" id="tab3">
-						<h3>This is tab 3</h3>
+						<div >
+						<div class="panel-group" id="accordion">
+				            {{#each allOrders}}
+				            {{> showorder}}
+				            {{/each}}
+				        </div>  
+				    </div>
 					</div>
 				</div>
 			</div>
 </div>
 		</div>
+</template>
+
+<template name="showorder">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
+                    <b>Order Date: {{created_date}}</b>
+                </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+            </h4>
+        </div>
+        <div id="{{_id}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div>
+                    <table class="table table-bordered table-stripped">
+                        <thead>
+                            <th>Dish Ordered</th>
+                            <th>Quantity</th>
+                        </thead>
+
+                        <tbody>
+                            {{#each i in dishes}} <!-- Display Each Dish -->
+                            <tr></tr>
+                            <td>{{i.dish_name}}</td>
+                            <td>{{i.quantity}}</td>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                    <div>Payable Amount: {{payable_amount}}</div>
+                </div>
+            </div>
+        </div>
+    </div> 
 </template>
