@@ -6,9 +6,28 @@ import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './visualize.html';
 
-Template.visualization.helpers({
-
-	createChart() {
+Template.admindashboard.helpers({
+    totalUsers() {
+        return Member.find({}).count();
+    },
+    totalOrders() {
+        return Order.find({}).count();
+    },
+    totalMembers() {
+        var total = 0;
+        Member.find({}).fetch().forEach(function(entry) {
+            if (entry.memberid != null) { total++; }
+        });
+        return total;
+    },
+    totalRevenue() {
+        var total = 0;
+        Order.find({}).fetch().forEach(function(entry) {
+            total = total + entry.payable_amount;
+        });
+        return total;
+    },
+        createChart() {
         var Highcharts = require('highcharts/highstock');
         var allOrders = Order.find({}).fetch();
         var orderInfo = [];
@@ -44,5 +63,7 @@ Template.visualization.helpers({
             });
 
         });
-    }
+    },
+
+
 });
