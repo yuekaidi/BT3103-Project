@@ -76,10 +76,11 @@
 					{{#if isAdmin}}
 						<ul class="nav navbar-nav">
 							<li><a href="{{pathFor route='coupon'}}">Coupon</a></li>
+							<li><a href="{{pathFor route='admindashboard'}}">Admin Dashboard</a></li>
 						</ul>
 					{{else}}
 						<ul class="nav navbar-nav">
-							<li><a href="{{pathFor route='dashboard'}}">User Dashboard</a></li>
+							<li><a href="{{pathFor route='dashboard'}}">Dashboard</a></li>
 						</ul>
 					{{/if}}
 
@@ -101,3 +102,36 @@
 	</nav>
 </template>
 
+
+<template name='admindashboard'>
+	<div class='container'>
+		<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail">
+			Total Users:
+			<hr>
+			<div class="dashtext">{{totalUsers}}</div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail">
+			Total Members:
+			<hr>
+			<div class="dashtext">{{totalMembers}} </div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail">
+			Total Orders:
+			<hr>
+			<div class="dashtext">{{totalOrders}} </div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail">
+			Total Revenue:
+			<hr>
+			<div class="dashtext">S$ {{totalRevenue}} </div>
+		</div>
+	</div>
+	</div>
+</template>	
