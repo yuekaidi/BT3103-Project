@@ -13,7 +13,7 @@ Template.dashboard.helpers({
         return Member.find({_id: Meteor.userId()});
 	},
 
-    //return all orders 
+    //return all orders by this user
     allOrders() {
         return Order.find({member_id: Meteor.userId()});
     },

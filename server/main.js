@@ -57,25 +57,6 @@ Meteor.startup(() => {
   Coupon.insert(coupon5);
   Coupon.insert(coupon75);
   Coupon.insert(coupon10);
-
-/*
-  const dummyMember1 = {
-  	_id: new Meteor.Collection.ObjectID(),
-  	email: "admin@abc.com",
-  	password: "abc",
-  	firstname: "Admin",
-  	lastname: "Admin",
-  	gender: "F",
-  	coupon: [],
-  	admin: true,
-  };
-
-  Member.insert(dummyMember1);
-*/
-  /*Accounts.createUser({
-  	email: "admin@abc.com",
-	password: "abc",
-  });*/
  
 });
 
@@ -129,9 +110,22 @@ Meteor.methods({
       console.log("New coupon created!");
     },
 
-    'update_user_info' (id, username, firstname, gender) {
-      Member.update({_id: id}, {$set: {username: username, firstname: firstname, gender: gender}});
+    'update_user_info' (id, username, firstname, lastname, gender) {
+      Member.update({_id: id}, {$set: {username: username, firstname: firstname, lastname: lastname, gender: gender}});
     },
+
+    'create_order' (coupon_id, id, date, amt, discount_amt, dishes) {
+      Order.insert({
+        _id: new Meteor.Collection.ObjectID(),
+        coupon_id: coupon_id,
+        member_id: id,
+        created_date: date,
+        payable_amount: amt,
+        payable_amount_discount: discount_amt,
+        dishes: dishes,
+      });
+      console.log('new order created!');
+    }
  
 
 });
