@@ -46,20 +46,21 @@ Template.menu.helpers({
 Template.menu.events({
 
     //green
-    'submit #form1': function(template) {
+    'click #form1': function(event, template) {
         event.preventDefault();
         console.log("clicked");
-        var name = $('[name=name]').val();
-        var price = $('[name=price]').val();
-        var cat = $('[name=cat]').val();
-        var url = $('[name=url]').val();
+
+        var name = template.$('[name=name]').val();
+        var price = template.$('[name=price]').val();
+        var cat = template.$('[name=cat]').val();
+        var url = template.$('[name=url]').val();
 
         Meteor.call('insert_dish', name, price, cat, url);
         //reset
-        $('[name=name]').val("");
-        $('[name=price]').val("");
-        $('[name=cat]').val("");
-        $('[name=url]').val("");
+        template.$('[name=name]').val("");
+        template.$('[name=price]').val("");
+        template.$('[name=cat]').val("");
+        template.$('[name=url]').val("");
     },
 
     // make the final order
