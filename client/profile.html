@@ -40,12 +40,15 @@
 						<div class="col-lg-5 col-sm-5">
 							<h3>Account Information</h3>
 							<hr>
-							<p>Username: {{user.firstname}} </p>
-							<p>Email: {{user.email}} </p>
-							<p>Name: {{user.firstname}} </p>
-							<p>Gender: {{user.gender}}</p>
-							<p>Member ID: {{#if (user.memberid)}}{{user.memberid}}{{else}}<a href="#" id='add'>activate membership</a>{{/if}}</p>
-							<a href="" >Edit</a>
+							<form role = 'form'>
+								<p>Username: <input type = 'text' class='info acc' name='username' value = '{{user.firstname}}' readonly></p>
+								<p>Email: <input type = 'text' name='email' value = '{{user.email}}' readonly> </p>
+								<p>Name:<input type = 'text' class = 'info acc' name='firstname' value = '{{user.firstname}}' readonly>  </p>
+								<p>Gender: <input type = 'text' class = 'info acc' name='gender' value = '{{user.gender}}' readonly></p>
+								<p>Member ID: {{#if (user.memberid)}}{{user.memberid}}{{else}}<a href="#" id='add'>activate membership</a>{{/if}}</p>
+								<button type='submit' class='btn edit1'>Edit Acc Info</button>
+								<button type='submit' class='btn edit2 hide'>Confirm</button>
+							</form>
 
 							<div class="modal fade" id="activationModal">
 								<div class="modal-dialog modal-sm">
@@ -72,11 +75,16 @@
 						<div class="col-lg-5 col-sm-5">
 						<h3>Address Information</h3>
 						<hr>
-						<p>Username: {{user.firstname}} </p>
-						<p>Email: {{user.email}} </p>
-						<p>Name: {{user.firstname}} </p>
-						<p>Gender: {{user.gender}}</p>
-						<a href="">Edit</a>
+						<form role='form'>
+							<p>Username: <input type = 'text' class='info' name='username' value = '{{user.firstname}}' readonly></p>
+							<p>Email: <input type = 'text' class='info' name='email' value = '{{user.email}}' readonly> </p>
+							<p>Name: <input type = 'text' class='info' name='firstname' value = '{{user.firstname}}' readonly> </p>
+							<p>Gender: <input type = 'text' class='info' name='gender' value = '{{user.gender}}' readonly></p>
+
+							<button type='submit' class='btn edit3'>Edit Address Info</button>
+							<button type='submit' class='btn edit4 hide'>Confirm</button>
+						</form>
+
 						</div>
 
 					</div>

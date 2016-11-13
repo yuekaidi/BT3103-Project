@@ -128,6 +128,10 @@ Meteor.methods({
       });
       console.log("New coupon created!");
     },
+
+    'update_user_info' (id, username, firstname, gender) {
+      Member.update({_id: id}, {$set: {username: username, firstname: firstname, gender: gender}});
+    },
  
 
 });

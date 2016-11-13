@@ -48,7 +48,31 @@ if (Meteor.isCordova || Meteor.isClient) {
   				Session.set('error', 'This activation code is not valid');
   			}
 
+  		},
+
+  		'click .edit1': function(event, template) {
+  			event.preventDefault();
+  			console.log('clicked on edit');
+
+  			template.$('.acc').prop('readonly', false);
+  			template.$('.edit1').addClass('hide');
+  			template.$('.edit2').removeClass('hide');
+  		},
+
+  		'click .edit2': function(event, template) {
+  			event.preventDefault();
+  			console.log('clicked');
+
+  			var username = template.$('[name=username]').val();
+  			var firstname = template.$('[name=firstname]').val();
+  			var gender = template.$('[name=gender]').val();
+
+  			Meteor.call('update_user_info', Meteor.userId(), username, firstname, gender);
+  			template.$('.acc').prop('readonly', true);
+  			template.$('.edit1').removeClass('hide');
+  			template.$('.edit2').addClass('hide');
   		}
+
 	});
 
 	Template.profile.helpers({
