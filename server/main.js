@@ -131,6 +131,10 @@ Meteor.methods({
       Member.update({_id: id}, {$push: {coupon: {_id: new Meteor.Collection.ObjectID(), coupon_name: name, coupon_discount: rate, coupon_description: des, issue_date: new Date(), expiration_date: exp}}});
       console.log("Coupon Created!");
     },
- 
+
+    'remove_used_coupon' (id, coupon) {
+      Member.update({_id: id}, {$pull: {coupon: coupon}});
+      console.log('Coupon Removed!');
+    }
 
 });

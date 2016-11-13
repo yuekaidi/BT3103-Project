@@ -23,18 +23,14 @@ Template.dashboard.helpers({
     createChart() {
       
         var Highcharts = require('highcharts/highstock');
-        // Gather data: 
-        var allOrders = Order.find({member_id: Meteor.userId()}).fetch(); //fetch()
+        var allOrders = Order.find({member_id: Meteor.userId()}).fetch();
         var orderInfo = [];
         var orderDate = [];
         
-        //fetch data
         for (i = 0; i < allOrders.length; i ++) {
             orderDate.push(allOrders[i].date_string);
             orderInfo.push([orderDate, allOrders[i].payable_amount]);
         }
-
-        console.log("Order Info is :", orderInfo.toString());
 
         // Use Meteor.defer() to craete chart after DOM is ready:
         Meteor.defer(function() {
@@ -65,35 +61,6 @@ Template.dashboard.helpers({
             });
 
         });//end of defer()
-
-    } // end of createChart()
-
-
-});
-
-Template.dashboard.events({
-
-	//funcitons : create orders
-	'submit form': function(event, template){
-        event.preventDefault();
-
-        var name = $('[name=couponname]').val();
-        var issuedate = $('[name=issuedate]').val();
-        var expirationdate = $('[name=expirationdate]').val();
-        var cat = template.find('input:radio[name=category]:checked').value;
-        
-        console.log("details: " + name + " " + issuedate + " " + expirationdate + " " + cat)
-
-        //insert into database
-        Coupon.insert({
-        	name: name,
-        	issuedate: issuedate, 
-        	expirationdate: expirationdate,
-        	category: cat,
-        });
-
-        Router.go('dashboard');
-        template.find("form").reset();//re-initialize form fields
     }
 
 });

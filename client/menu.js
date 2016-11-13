@@ -44,6 +44,7 @@ Template.menu.helpers({
 
 Template.menu.events({
 
+    // manager create dish
     'click #form1': function(event, template) {
         event.preventDefault();
 
@@ -60,13 +61,12 @@ Template.menu.events({
         template.$('[name=url]').val("");
     },
 
-    // make the final order
-    'click #form2': function () {
-
+    //customers make the final order
+    'click #form2': function (event, template) {
         event.preventDefault();
 
         if(Session.get('amt') == 0 ){ // prevent empty order 
-            alert('empty in basket');
+            alert('Error: empty in basket');
             return 0;
         } else {
             var now = new Date();
@@ -76,6 +76,18 @@ Template.menu.events({
             Session.set('discountAmount', Session.get('amt'));
             Session.set("dishname", []);
             dishname = [];
+
+            //remove used coupn in this order
+            var used_coupon_value = template.find('input:radio[name=rate]:checked').value;
+            var all_coupons = Member.find({_id: Meteor.userId()}).fetch()[0].coupon;
+            var temp = 0;
+            for(i = 0; i < all_coupons.length; i ++) {
+                if (used_coupon_value == i.coupon_discount)
+                    temp = i;
+                break;
+            }
+            var new_coupon = all_coupons[temp];
+            Meteor.call('remove_used_coupon', Meteor.userId(), new_coupon);
 
             Router.go('dashboard');
         }

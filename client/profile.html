@@ -3,7 +3,6 @@
 			<div class="col-lg-2 col-sm-2">
 			<div class="card hovercard">
 				<div class="card-background">
-					<!-- <img class="card-bkimg" alt="" src="http://image.flaticon.com/icons/png/512/145/145863.png"> -->
 				</div>
 				<div class="useravatar">
 					<img alt="" src="{{user.picture}}">
@@ -46,11 +45,12 @@
 							</h3>
 							
 							<hr>
-								<p>Username: <input type = 'text' class='info acc' name='username' value = '{{user.firstname}}' readonly></p>
+								<p>Username: <input type = 'text' class='info acc' name='username' value = '{{user.username}}' readonly></p>
 								<p>Email: {{user.email}}</p>
 								<p>First Name: <input type = 'text' class = 'info acc' name='firstname' value = '{{user.firstname}}' readonly></p>
 								<p>Last Name: <input type = 'text' class = 'info acc' name='lastname' value = '{{user.lastname}}' readonly></p>
-								<p>Gender: <input type = 'text' class = 'info acc' name='gender' value = '{{user.gender}}' readonly></p>
+								<p>Gender: <input type = 'text' class = 'info acc' name='gender' value = '{{user.gender}}' readonly>
+								</p>
 								<p>Member ID: {{#if (user.memberid)}}{{user.memberid}}{{else}}<a href="#" id='add'>activate membership</a>{{/if}}</p>
 								
 							</form>
@@ -76,7 +76,7 @@
 									</div>
 								</div>
 							</div>	
-										
+
 						</div>
 
 
@@ -94,9 +94,6 @@
 							</div>
 						{{/each}}
 
-						<div class="col-lg-5 col-sm-5 coupon">
-							<div class="center">+ Earn coupon</div>
-						</div>
 					</div>
 
 					<div class="tab-pane fade in" id="tab3">
