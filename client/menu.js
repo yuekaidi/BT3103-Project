@@ -18,10 +18,9 @@ var dishname = Session.get("dishname").slice();
 if (Meteor.isCordova || Meteor.isClient) {
 
 Template.menu.helpers({
-    //green
+
     isAdmin() {
         var member = Member.find({_id: Meteor.userId()}).fetch();
-        console.log(member[0].admin);
         return member[0].admin;
     },
 
@@ -45,10 +44,8 @@ Template.menu.helpers({
 
 Template.menu.events({
 
-    //green
     'click #form1': function(event, template) {
         event.preventDefault();
-        console.log("clicked");
 
         var name = template.$('[name=name]').val();
         var price = template.$('[name=price]').val();
@@ -67,23 +64,20 @@ Template.menu.events({
     'click #form2': function () {
 
         event.preventDefault();
-        //console.log("click on order button");
+
         if(Session.get('amt') == 0 ){ // prevent empty order 
             alert('empty in basket');
             return 0;
         } else {
             var now = new Date();
-
             Meteor.call('create_order', 1001, Meteor.userId(), now, now.toISOString().slice(0, 10) + "  " + now.toISOString().slice(11, 19), Session.get('amt'), Session.get('discountAmount'), dishname);
-            console.log('inserted order');
             //reset 
             Session.set("amt", 0);
             Session.set('discountAmount', Session.get('amt'));
             Session.set("dishname", []);
             dishname = [];
 
-            //console.log("inserted");
-            Router.go('profile');
+            Router.go('dashboard');
         }
     },
 
@@ -91,7 +85,6 @@ Template.menu.events({
 
 Template.displayDish.events({
 
-    //green
     'click .add-order': function(event, template) {
         event.preventDefault();
         var id = this._id;
@@ -107,8 +100,6 @@ Template.displayDish.events({
         }
     },
 
-
-    //gree
     'click .quantity-right-plus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
@@ -118,11 +109,9 @@ Template.displayDish.events({
         template.$('.add-order').removeClass('disabled');
     },
 
-    //green
     'click .quantity-left-minus': function(event, template) {
-        // Stop acting like a button
         event.preventDefault();
-        //console.log("clicked");
+
         if(parseInt(template.$('[name=quantity]').val()) == 0){
             template.$('.quantity-left-minus').addClass('disabled');
             template.$('.add-order').addClass('disabled');
@@ -143,7 +132,6 @@ Template.displayAvailabeCoupon.helpers({
 
 Template.displayAvailabeCoupon.events({
 
-    //apply discount rate
     'click #rate': function(event, template) {
         console.log('clicked');
         var rate = template.find('input:radio[name=rate]:checked').value; //
@@ -166,7 +154,6 @@ Template.displayDishAdmin.events({
 
     'click .form4': function(event, template) {
         event.preventDefault();
-        console.log("clicked");
 
         var name = template.$('[name=name]').val();
         var price = template.$('[name=price]').val();
@@ -187,9 +174,8 @@ Template.order.helpers({
     allOrders() {
         return Order.find({_id: Session.get("createOrderId")});
     },
-
-
 });
+
 };
 
 
