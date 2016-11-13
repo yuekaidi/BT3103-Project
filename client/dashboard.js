@@ -6,6 +6,7 @@ import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './dashboard.html';
 
+if (Meteor.isCordova || Meteor.isClient) {
 Template.dashboard.helpers({
 
 	// return current member object
@@ -55,7 +56,7 @@ Template.dashboard.helpers({
 
                 series: [{
                     type: 'column',
-                    name: 'Amount ($)',
+                    name: 'Time of Orders',
                     data: orderInfo,
                 },
                 ],
@@ -119,7 +120,7 @@ Template.coupon.events({
         template.$('[name=rate]').val("");
     },
 });
-
+}
 
 
 

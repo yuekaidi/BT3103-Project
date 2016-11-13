@@ -9,7 +9,7 @@ import './login.js';
 import '/lib/routing.js';
 
 
-
+if (Meteor.isCordova || Meteor.isClient) {
 Template.navigation.events({
     'click .logout': function(event){
         event.preventDefault();
@@ -30,3 +30,4 @@ Template.navigation.helpers({
         return member[0].admin;
     },
 });
+}
