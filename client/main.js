@@ -28,6 +28,12 @@ Template.navigation.helpers({
 	isAdmin() {
         var member = Member.find({_id: Meteor.userId()}).fetch();
         return member[0].admin;
+    }
+});
+
+Template.home.helpers({
+    profile() {
+        return Member.findOne({_id:Meteor.userId()}).firstname;
     },
 });
 }
