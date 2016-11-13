@@ -27,7 +27,8 @@ Template.admindashboard.helpers({
         });
         return total;
     },
-        createChart() {
+    
+    createChart() {
         var Highcharts = require('highcharts/highstock');
         var allOrders = Order.find({}).fetch();
         var orderInfo = [];
@@ -42,7 +43,7 @@ Template.admindashboard.helpers({
         Meteor.defer(function() {
             Highcharts.chart('chart', {
                 title: {
-                    text: "Monthly Revenue",
+                    text: "Revenue per order",
                 },
                 yAxis: {
                     title: {
@@ -55,11 +56,46 @@ Template.admindashboard.helpers({
                 },
                 colors: ['#358E96'],
                 series: [{
-                    type: 'pie',
+                    type: 'column',
                     name: 'Payable amount',
                     data: orderInfo,
                 },
                 ],
+            });
+
+        });
+    },
+
+    genderChart() {
+        var Highcharts = require('highcharts/highstock');
+        var male = 0;
+        var female = 0;
+        
+        Member.find({}).fetch().forEach(function(entry) {
+            if (entry.gender == 'male') { male++; }
+            else {female++; }
+        });
+
+        var compo = [male,female];
+
+        // Use Meteor.defer() to craete chart after DOM is ready:
+        Meteor.defer(function() {
+            Highcharts.chart('chart2', {
+                title: {
+                    text: "Gender distribution",
+                },
+                colors: ['#358E96'],
+                series: [{
+                    type: 'pie',
+                    name: 'Number',
+                    data: [{
+                        name: 'male',
+                        y: male
+                    }, {
+                        name: 'Female',
+                        y: female
+                    }] 
+                }],
             });
 
         });
