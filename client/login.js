@@ -74,8 +74,7 @@ if (Meteor.isCordova || Meteor.isClient) {
                         gender: gender,
                         memberid: null,
                         joindate: null,
-                        coupon75: null,
-                        coupon100: null,
+                        coupon: [],
                         admin: false,
                         picture: "http://image.flaticon.com/icons/png/512/145/145863.png"
                     });

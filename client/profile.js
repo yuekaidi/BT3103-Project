@@ -60,6 +60,10 @@ if (Meteor.isCordova || Meteor.isClient) {
 		allOrders() {
         	return Order.find({member_id: Meteor.userId()});
     	},
+
+    	allCoupons() {
+    		return user.coupon;
+    	}
 	});
 }
 

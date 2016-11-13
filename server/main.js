@@ -70,17 +70,6 @@ Meteor.startup(() => {
 
 Meteor.methods({
 	//extra methods
-	'insert' (id, firstname, lastname, gender, coupon, admin) {
-		Member.insert({
-	                    _id: id,
-	                    firstname: firstname,
-	                    lastname: lastname,
-	                    gender: gender,
-	                    coupon: coupon,
-	                    admin: admin
-	                }); 
-    console.log("New User Registration Complete!");
-    },
 
     'update_coupon' (coupon, consumed, days) {
 
