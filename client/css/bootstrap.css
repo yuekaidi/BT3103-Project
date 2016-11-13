@@ -6879,3 +6879,9 @@ footer{
         width: 100%;
     }
 }
+
+.dashtext {
+  text-align: center;
+  font-size: 32px;
+  color: #358E96;
+}
