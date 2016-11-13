@@ -1,62 +1,66 @@
 <template name="dashboard">
     <div class="container">
-    <div class="with-background col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="with-background col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <h2>{{user.firstname}}'s Dashboard</h2>
+        </div>
+
+        <div class="col-xs-12 col-sm-2 col-md-3"></div>
     </div>
 
-    <div class="col-xs-12 col-sm-2 col-md-3"></div>
-</div>
+    <div class="container">
 
+     <div class="barchart" id="chart">{{createChart}}</div>
 
-    <div class="barchart" id="chart">{{createChart}}</div>
+</div>s
+    <!-- <div class="leaderboard" id="leaderboard">{{> leaderboard}}</div> -->
 
-        <div class="row">
-    <div>
-        <div class="panel-group" id="accordion">
-            {{#each allOrders}}
-            {{> displayOrder}}
-            {{/each}}
-        </div>      
+    <div class="row">
+        <div>
+            <div class="panel-group" id="accordion">
+                {{#each allOrders}}
+                {{> displayOrder}}
+                {{/each}}
+            </div>      
+        </div>
     </div>
-</div>
 </template>
 
 
 <template name="displayOrder">
     <div class="container with-background">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
-                    <b>Order Date: {{date_string}}</b>
-                </a>
-            </h4>
-        </div>
-        <div id="{{_id}}" class="panel-collapse collapse">
-            <div class="panel-body">
-                <div>
-                    <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6">
-                        <thead>
-                            <th>Dish Ordered</th>
-                            <th>Quantity</th>
-                        </thead>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
+                        <b>Order Date: {{date_string}}</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="{{_id}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div>
+                        <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6">
+                            <thead>
+                                <th>Dish Ordered</th>
+                                <th>Quantity</th>
+                            </thead>
 
-                        <tbody>
-                            {{#each i in dishes}} <!-- Display Each Dish -->
-                            <tr></tr>
-                            <td>{{i.dish_name}}</td>
-                            <td>{{i.quantity}}</td>
-                            {{/each}}
-                        </tbody>
-                    </table>
+                            <tbody>
+                                {{#each i in dishes}} <!-- Display Each Dish -->
+                                <tr></tr>
+                                <td>{{i.dish_name}}</td>
+                                <td>{{i.quantity}}</td>
+                                {{/each}}
+                            </tbody>
+                        </table>
 
-                    <div>Total Amount: {{payable_amount}}</div>
-                    <div>Payable Amount: {{payable_amount_discount}}</div>
+                        <div>Total Amount: {{payable_amount}}</div>
+                        <div>Payable Amount: {{payable_amount_discount}}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> 
-</div>
+        </div> 
+    </div>
 </template>
 
 
@@ -91,7 +95,7 @@
                 </thead>
                 <tbody>
                     {{#each allCoupons}}
-                        <tr>{{>displayCoupon}}</tr>
+                    <tr>{{>displayCoupon}}</tr>
                     {{/each}}
                 </tbody>
             </table>
@@ -112,7 +116,7 @@
                     </thead>
                     <tbody>
                         {{#each customers}}
-                            <tr>{{> displayCustomer}}</tr>
+                        <tr>{{> displayCustomer}}</tr>
                         {{/each}}
                     </tbody>
                 </table>
@@ -134,5 +138,13 @@
 </template>
 
 
-
-
+<!-- <template name = 'leaderboard'>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <h2>Top Dishes Ordered</h2>
+        {{#each topdish}}
+            {{dish_name}}
+            {{quantity}}
+        {{/each}}
+    </div>
+</template>
+-->

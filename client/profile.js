@@ -76,7 +76,7 @@ if (Meteor.isCordova || Meteor.isClient) {
   			var username = template.$('[name=username]').val();
   			var firstname = template.$('[name=firstname]').val();
         var lastname = template.$('[name=lastname]').val();
-  			var gender = $('input[name=gender]:checked').val();
+  			var gender = template.$('[name=gender]').val();
 
   			Meteor.call('update_user_info', Meteor.userId(), username, firstname, lastname, gender);
   			template.$('.acc').prop('readonly', true);
@@ -103,25 +103,6 @@ if (Meteor.isCordova || Meteor.isClient) {
     		return Member.findOne({_id: Meteor.userId()}).coupon;
     },
 
-    gender() {
-      if (Member.findOne({_id: Meteor.userId()}).gender == 'M') {
-        return 'male';
-      } else {
-        return 'female';
-      }
-    },
-
-    notgender() {
-      if (Member.findOne({_id: Meteor.userId()}).gender == 'M') {
-        return 'female';
-      } else {
-        return 'male';
-      }
-    },
-
-    readonly() {
-        return  $('[readonly]').val();
-    }
 	});
 }
 
