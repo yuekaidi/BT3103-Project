@@ -33,20 +33,28 @@ Meteor.startup(() => {
   Menu.insert(dummyMenu2);
   Menu.insert(dummyMenu3);
 
-  const dummyCoupon1 = {
-    _id: new Meteor.Collection.ObjectID(),
-    coupon_name: "New Coming 5% Discount",
+  const coupon5 = {
+    _id: "0050",
+    coupon_name: "Basic 5% Off",
     coupon_discount: 0.95,
   };
 
-  const dummyCoupon2 = {
-    _id: new Meteor.Collection.ObjectID(),
-    coupon_name: "Loyalty 10% Discount",
+  const coupon75 = {
+    _id: "0075",
+    coupon_name: "Intermediate 7.5% Off",
+    coupon_discount: 0.925,
+  };
+
+  const coupon10 = {
+    _id: "0100",
+    coupon_name: "Loyalty 10% Off",
     coupon_discount: 0.9,
   };
 
-  Coupon.insert(dummyCoupon1);
-  Coupon.insert(dummyCoupon2);
+  Coupon.insert(coupon5);
+  Coupon.insert(coupon75);
+  Coupon.insert(coupon10);
+
 /*
   const dummyMember1 = {
   	_id: new Meteor.Collection.ObjectID(),

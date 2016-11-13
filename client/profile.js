@@ -39,11 +39,14 @@ if (Meteor.isCordova || Meteor.isClient) {
   				$('#activationModal').modal('hide');
   				Member.update({_id: Meteor.userId()}, {$set:{memberid: memberid, joindate: new Date()}});
   				Authcode.remove({_id:authcode});
+  				var coupon = Coupon.find({_id:"0050"}).fetch()[0];
+  				coupon.issue_date = new Date();
+  				coupon.expiration_date = null;
+  				Member.update({_id: Meteor.userId()}, {$push: {coupon: coupon}});
   			}
   			else {
   				Session.set('error', 'This activation code is not valid');
   			}
-  			
 
   		}
 	});
@@ -62,7 +65,7 @@ if (Meteor.isCordova || Meteor.isClient) {
     	},
 
     	allCoupons() {
-    		return user.coupon;
+    		return Member.findOne({_id: Meteor.userId()}).coupon;
     	}
 	});
 }
