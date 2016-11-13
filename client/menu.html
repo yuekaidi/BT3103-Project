@@ -54,11 +54,11 @@
 							</thead>
 							<tbody>
 								{{#each selected}}
-								<tr>
-									<td>{{dish_name}}</td>
-									<td>{{dish_price}}</td>
-									<td>{{quantity}}</td>
-								</tr>
+									<tr>
+										<td>{{dish_name}}</td>
+										<td>{{dish_price}}</td>
+										<td>{{quantity}}</td>
+									</tr>
 								{{/each}}
 								<tr>
 									<td class="bold">Total</td>
@@ -67,9 +67,14 @@
 								<tr>
 									<td class="bold">Coupons</td>
 									<td colspan="2">
-                            			<div><input type="checkbox" id="coupon" value="coupon" name="coupon">  {{coupon}}
-                            				<input type="checkbox" id="coupon2" value="coupon2" name="coupon2">  {{coupon2}}</div>
+                            			<div>
+                            				{{>displayAvailabeCoupon}}
+                            			</div>
                         			</td>
+								</tr>
+								<tr>
+									<td class="bold">Total with Discount</td>
+									<td colspan="2" class="bold">{{totalPriceWithDiscount}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -84,9 +89,15 @@
 		</div>
 		<!-- end of row / customer-->
 		{{/if}}
-
-
 	</div>
+</template>
+
+
+<!-- Display Avalable Coupon-->
+<template name = 'displayAvailabeCoupon'>
+	<!-- Dummy -->
+	<p><input type = 'radio' class='rate' name = 'rate' value = '0.95'> Basic 5% Discount</p>
+	<!-- <p><input type = 'radio' name = 'rate' value = '0.95'> 10% Discount</p> -->
 </template>
 
 <!-- template for a dish display / customers-->

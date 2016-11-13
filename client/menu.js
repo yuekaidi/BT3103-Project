@@ -10,12 +10,15 @@ import './menu.html';
 
 Session.setDefault("dishname", []);
 Session.setDefault("amt", 0);
+Session.setDefault("discountAmount", Session.get('amt'));
 Session.setDefault("coupon", 1);
+
 var dishname = Session.get("dishname").slice();
-Session.setDefault("createOrderId", "");
 
 if (Meteor.isCordova || Meteor.isClient) {
+
 Template.menu.helpers({
+    //green
     isAdmin() {
         var member = Member.find({_id: Meteor.userId()}).fetch();
         console.log(member[0].admin);
@@ -34,45 +37,13 @@ Template.menu.helpers({
         return Session.get("amt");
     },
 
-    coupon() {
-        var coupon75 = Member.findOne({_id: Meteor.userId()}).coupon75;
-        var coupon100 = Member.findOne({_id: Meteor.userId()}).coupon100;
-        if (coupon100) { 
-            Session.set('coupon', 0.1);
-            return "10% off";
-        }
-        if (coupon75) {
-            Session.set('coupon', 0.075);
-            return "7.5% off";
-        }        
-    },
-
-    coupon2() {
-        return "5% off";
+    totalPriceWithDiscount() {
+        return Session.get('discountAmount');
     }
 });
 
 
 Template.menu.events({
-    'click #coupon': function () {
-        var status = $('#coupon').prop('checked');
-        if (status) {
-            Session.set('amt', (Session.get('amt') * (1-Session.get('coupon'))).toFixed(2));
-        }
-        else {
-            Session.set('amt', (Session.get("oriamt")));
-        }
-    },
-
-    'click #coupon2': function() {
-        var status = $('#coupon2').prop('checked');
-        if (status) {
-            Session.set('amt', (Session.get('amt') * (0.95)).toFixed(2));
-        }
-        else {
-            Session.set('amt', (Session.get("oriamt")));
-        }
-    },
 
     //green
     'click #form1': function(template) {
@@ -91,28 +62,29 @@ Template.menu.events({
         $('[name=url]').val("");
     },
 
+    // make the final order
     'click #form2': function () {
 
         event.preventDefault();
         console.log("click on order button");
 
-        // insert function will return an ID
-        var temp = Order.insert({
-            coupon_id: 1001,
-            member_id: Meteor.userId(),
-            created_date: new Date(),
-            payable_amount: Session.get("amt"),
-            dishes: dishname,
-        });
+        // prevent empty order 
+        if(Session.get('amt') == 0 ){
+            alert('empty in basket');
+            return 0;
+        } else {
 
-        Session.set("createOrderId", temp);
-        Session.set("amt", 0);
-        Session.set("dishname", []);
-        dishname = [];
+            Meteor.call('create_order', 1001, Meteor.userId(), new Date(), Session.get('amt'), Session.get('discountAmount'), dishname);
+            console.log('inserted order');
+            //reset 
+            Session.set("amt", 0);
+            Session.set('discountAmount', Session.get('amt'));
+            Session.set("dishname", []);
+            dishname = [];
 
-        //console.log("inserted");
-        Router.go('profile');
-
+            //console.log("inserted");
+            Router.go('profile');
+        }
     },
 
 });
@@ -121,19 +93,20 @@ Template.displayDish.events({
 
     //green
     'click .add-order': function(event, template) {
-
+        event.preventDefault();
         var id = this._id;
         var quantity = parseInt(template.$('[name=quantity]').val());  
 
         if (quantity > 0) {
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
             Session.set("oriamt", Session.get("amt"));
-            //console.log("Amt: ", Session.get("amt"));
+            Session.set('discountAmount', Session.get('amt'));
 
             dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_price: this.dish_price, quantity: quantity});
             Session.set("dishname", dishname);
         }
     },
+
 
     //gree
     'click .quantity-right-plus': function(event, template) {
@@ -157,6 +130,17 @@ Template.displayDish.events({
         }
     },
 
+});
+
+Template.displayAvailabeCoupon.events({
+
+    'click .rate': function(event, template) {
+        //event.preventDefault();
+        console.log('clicked');
+        var rate = template.$('[name=rate]').val();
+        
+        Session.set('discountAmount', (Session.get('amt')*rate).toFixed(2));
+    },
 });
 
 Template.displayDishAdmin.events({
