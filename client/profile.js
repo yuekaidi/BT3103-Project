@@ -50,6 +50,16 @@ if (Meteor.isCordova || Meteor.isClient) {
 
   		},
 
+      'click .male': function(){
+            $('.male').removeClass('not-active').addClass('gender');
+            $('.female').addClass('not-active').removeClass('gender');
+        },
+
+        'click .female': function(){
+            $('.female').removeClass('not-active').addClass('gender');
+            $('.male').addClass('not-active').removeClass('gender');
+        },
+
   		'click .edit1': function(event, template) {
   			event.preventDefault();
   			console.log('clicked on edit');
@@ -65,9 +75,10 @@ if (Meteor.isCordova || Meteor.isClient) {
 
   			var username = template.$('[name=username]').val();
   			var firstname = template.$('[name=firstname]').val();
-  			var gender = template.$('[name=gender]').val();
+        var lastname = template.$('[name=lastname]').val();
+  			var gender = $('input[name=gender]:checked').val();
 
-  			Meteor.call('update_user_info', Meteor.userId(), username, firstname, gender);
+  			Meteor.call('update_user_info', Meteor.userId(), username, firstname, lastname, gender);
   			template.$('.acc').prop('readonly', true);
   			template.$('.edit1').removeClass('hide');
   			template.$('.edit2').addClass('hide');
@@ -86,11 +97,31 @@ if (Meteor.isCordova || Meteor.isClient) {
 
 		allOrders() {
         	return Order.find({member_id: Meteor.userId()});
-    	},
+    },
 
-    	allCoupons() {
+    allCoupons() {
     		return Member.findOne({_id: Meteor.userId()}).coupon;
-    	}
+    },
+
+    gender() {
+      if (Member.findOne({_id: Meteor.userId()}).gender == 'M') {
+        return 'male';
+      } else {
+        return 'female';
+      }
+    },
+
+    notgender() {
+      if (Member.findOne({_id: Meteor.userId()}).gender == 'M') {
+        return 'female';
+      } else {
+        return 'male';
+      }
+    },
+
+    readonly() {
+        return  $('[readonly]').val();
+    }
 	});
 }
 
