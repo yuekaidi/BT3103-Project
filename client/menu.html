@@ -104,9 +104,11 @@
 				</div>
 				<!-- end of order summary -->
 			</div>
-			<form role="form" class="col-xs-12 col-sm-8 col-md-4">
-				<input type='submit' id = "form2" value="Order" class="btn btn-primary">
-			</form>
+			{{#if currentUser}}
+				<form role="form" class="col-xs-12 col-sm-8 col-md-4">
+					<input type='submit' id = "form2" value="Order" class="btn btn-primary">
+				</form>
+			{{/if}}
 			<!-- end of menu -->
 		</div>
 		<!-- end of row / customer-->
@@ -136,6 +138,7 @@
 				<p>{{dish_category}}</p>
 			</div>
 
+			{{#if currentUser}}
 			<div class="input-group quantity">
 				<span class="input-group-btn">
 					<button type="button" class="quantity-left-minus btn btn-number disabled"  data-type="minus" data-field="">
@@ -150,6 +153,7 @@
 				</span>
 				<button type="button" class="add-order btn disabled btn-primary" data-type="" data-field=""><div>Add to order</div></button>
 			</div>
+			{{/if}}
 		</div>
 	</div>
 </template>
