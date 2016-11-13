@@ -73,8 +73,9 @@ Template.menu.events({
             alert('empty in basket');
             return 0;
         } else {
+            var now = new Date();
 
-            Meteor.call('create_order', 1001, Meteor.userId(), new Date(), Session.get('amt'), Session.get('discountAmount'), dishname);
+            Meteor.call('create_order', 1001, Meteor.userId(), now, now.toISOString().slice(0, 10) + "  " + now.toISOString().slice(11, 19), Session.get('amt'), Session.get('discountAmount'), dishname);
             console.log('inserted order');
             //reset 
             Session.set("amt", 0);

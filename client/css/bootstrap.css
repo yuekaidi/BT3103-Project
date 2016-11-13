@@ -6804,3 +6804,7 @@ button.close {
   background: transparent;
   border-width: 0px;
 }
+
+.barchart {
+  width:80%;
+}

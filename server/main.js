@@ -114,12 +114,12 @@ Meteor.methods({
       Member.update({_id: id}, {$set: {username: username, firstname: firstname, lastname: lastname, gender: gender}});
     },
 
-    'create_order' (coupon_id, id, date, amt, discount_amt, dishes) {
+    'create_order' (coupon_id, id, date, date_string, amt, discount_amt, dishes) {
       Order.insert({
-        _id: new Meteor.Collection.ObjectID(),
         coupon_id: coupon_id,
         member_id: id,
         created_date: date,
+        date_string: date_string,
         payable_amount: amt,
         payable_amount_discount: discount_amt,
         dishes: dishes,

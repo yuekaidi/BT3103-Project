@@ -121,7 +121,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
-                    <b>Order Date: {{created_date}}</b>
+                    <b>Order Date: {{date_string}}</b>
                 </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
             </h4>
         </div>
@@ -143,7 +143,8 @@
                         </tbody>
                     </table>
 
-                    <div>Payable Amount: {{payable_amount}}</div>
+                    <div>Total Amount: {{payable_amount}}</div>
+                    <div>Payable Amount: {{payable_amount_discount}}</div>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ Template.dashboard.helpers({
 
 	// return current member object
 	user() {
-        return Member.find({_id: Meteor.userId()});
+        return Member.findOne({_id: Meteor.userId()});
 	},
 
     //return all orders by this user
@@ -29,7 +29,7 @@ Template.dashboard.helpers({
         
         //fetch data
         for (i = 0; i < allOrders.length; i ++) {
-            orderDate.push(allOrders[i].created_date);
+            orderDate.push(allOrders[i].date_string);
             orderInfo.push([orderDate, allOrders[i].payable_amount]);
         }
 

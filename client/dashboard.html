@@ -1,22 +1,17 @@
 <template name="dashboard">
     <div class="container">
     <div class="with-background col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        {{#each user}}
-            <h2>{{firstname}}'s Profile</h2>
-            <!-- Some Personal Info -->
-            <div>
-                <h4>Name: {{firstname}} {{lastname}}</h4>
-                <h4>Gender: {{gender}}</h4>
-            </div>
-        {{/each}}
+            <h2>{{user.firstname}}'s Dashboard</h2>
     </div>
 
     <div class="col-xs-12 col-sm-2 col-md-3"></div>
 </div>
-    <div class="row">
-    <!-- Some Order Info -->
+
+
+    <div class="barchart" id="chart">{{createChart}}</div>
+
+        <div class="row">
     <div>
-        <h2>Past Orders</h2>
         <div class="panel-group" id="accordion">
             {{#each allOrders}}
             {{> displayOrder}}
@@ -24,9 +19,6 @@
         </div>      
     </div>
 </div>
-
-    <!-- Chart -->
-    <div id="chart">{{createChart}}</div>
 </template>
 
 
@@ -36,11 +28,11 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
-                    <b>Order Date: {{created_date}}</b>
+                    <b>Order Date: {{date_string}}</b>
                 </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
             </h4>
         </div>
-        <div id="{{_id}}">
+        <div id="{{_id}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <div>
                     <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6">
