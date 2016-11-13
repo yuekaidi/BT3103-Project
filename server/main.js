@@ -33,54 +33,35 @@ Meteor.startup(() => {
   Menu.insert(dummyMenu2);
   Menu.insert(dummyMenu3);
 
-  const dummyCoupon1 = {
-    _id: new Meteor.Collection.ObjectID(),
-    coupon_name: "New Coming 5% Discount",
+  const coupon5 = {
+    _id: "0050",
+    coupon_name: "Basic 5% Off",
     coupon_discount: 0.95,
+    coupon_description: "With purchase of any meal. \n This discount will be automatic in your orders.",
   };
 
-  const dummyCoupon2 = {
-    _id: new Meteor.Collection.ObjectID(),
-    coupon_name: "Loyalty 10% Discount",
+  const coupon75 = {
+    _id: "0075",
+    coupon_name: "Alluring 7.5% Off",
+    coupon_discount: 0.925,
+    coupon_description: 'with purshase of above 20 dollars. \n The coupon is valid for 30 days.',
+  };
+
+  const coupon10 = {
+    _id: "0100",
+    coupon_name: "Loyalty 10% Off",
     coupon_discount: 0.9,
+    coupon_description: 'with purshase of above 50 dollars. \n The coupon is valid for 30 days.',
   };
 
-  Coupon.insert(dummyCoupon1);
-  Coupon.insert(dummyCoupon2);
-/*
-  const dummyMember1 = {
-  	_id: new Meteor.Collection.ObjectID(),
-  	email: "admin@abc.com",
-  	password: "abc",
-  	firstname: "Admin",
-  	lastname: "Admin",
-  	gender: "F",
-  	coupon: [],
-  	admin: true,
-  };
-
-  Member.insert(dummyMember1);
-*/
-  /*Accounts.createUser({
-  	email: "admin@abc.com",
-	password: "abc",
-  });*/
+  Coupon.insert(coupon5);
+  Coupon.insert(coupon75);
+  Coupon.insert(coupon10);
  
 });
 
 Meteor.methods({
 	//extra methods
-	'insert' (id, firstname, lastname, gender, coupon, admin) {
-		Member.insert({
-	                    _id: id,
-	                    firstname: firstname,
-	                    lastname: lastname,
-	                    gender: gender,
-	                    coupon: coupon,
-	                    admin: admin
-	                }); 
-    console.log("New User Registration Complete!");
-    },
 
     'update_coupon' (coupon, consumed, days) {
 
@@ -128,6 +109,32 @@ Meteor.methods({
       });
       console.log("New coupon created!");
     },
- 
+
+    'update_user_info' (id, username, firstname, lastname, gender) {
+      Member.update({_id: id}, {$set: {username: username, firstname: firstname, lastname: lastname, gender: gender}});
+    },
+
+    'create_order' (coupon_id, id, date, date_string, amt, discount_amt, dishes) {
+      Order.insert({
+        coupon_id: coupon_id,
+        member_id: id,
+        created_date: date,
+        date_string: date_string,
+        payable_amount: amt,
+        payable_amount_discount: discount_amt,
+        dishes: dishes,
+      });
+      console.log('new order created!');
+    },
+
+    'issue_coupon' (id, name, rate, des, exp) {
+      Member.update({_id: id}, {$push: {coupon: {_id: new Meteor.Collection.ObjectID(), coupon_name: name, coupon_discount: rate, coupon_description: des, issue_date: new Date(), expiration_date: exp}}});
+      console.log("Coupon Created!");
+    },
+
+    'remove_used_coupon' (id, coupon) {
+      Member.update({_id: id}, {$pull: {coupon: coupon}});
+      console.log('Coupon Removed!');
+    }
 
 });

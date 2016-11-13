@@ -1,0 +1,147 @@
+<template name="profile">
+		<div class="col-lg-12 col-sm-12">
+			<div class="col-lg-2 col-sm-2">
+			<div class="card hovercard">
+				<div class="card-background">
+				</div>
+				<div class="useravatar">
+					<img alt="" src="{{user.picture}}">
+				</div>
+				<div class="card-info"> 
+					<span class="card-title">{{user.firstname}}</span>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-lg-10 col-sm-10">
+			<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+				<div class="btn-group" role="group">
+					<button type="button" id="info" class="btn btn-primary" href="#tab1" data-toggle="tab">
+						<div class="hidden-xs">Profile</div>
+					</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" id="coupon" class="btn btn-default" href="#tab2" data-toggle="tab">
+						<div class="hidden-xs">Coupons</div>
+					</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" id="history" class="btn btn-default" href="#tab3" data-toggle="tab">
+						<div class="hidden-xs">Past Orders</div>
+					</button>
+				</div>
+			</div>
+
+
+			<div class="well">
+				<div class="tab-content container">
+					<div class="tab-pane fade in active" id="tab1">
+						<div class="col-lg-5 col-sm-5">
+							<form role = 'form'>
+							<h3>
+								Account Information
+								<button type='submit' class='btn edit1'>Edit</button>
+								<button type='submit' class='btn edit2 hide'>Save</button>
+							</h3>
+							
+							<hr>
+								<p>Username: <input type = 'text' class='info acc' name='username' value = '{{user.username}}' readonly></p>
+								<p>Email: {{user.email}}</p>
+								<p>First Name: <input type = 'text' class = 'info acc' name='firstname' value = '{{user.firstname}}' readonly></p>
+								<p>Last Name: <input type = 'text' class = 'info acc' name='lastname' value = '{{user.lastname}}' readonly></p>
+								<p>Gender: <input type = 'text' class = 'info acc' name='gender' value = '{{user.gender}}' readonly>
+								</p>
+								<p>Member ID: {{#if (user.memberid)}}{{user.memberid}}{{else}}<a href="#" id='add'>activate membership</a>{{/if}}</p>
+								
+							</form>
+
+							<div class="modal fade" id="activationModal">
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+
+										<div class="modal-header">
+											<h4 class="modal-title">Member Activation Code</h4>
+										</div>
+
+										<div class="modal-body">
+											<input type="text" id="code" name='code'/>
+											<div>{{error}}</div>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" id="auth">Authenticate</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+										</div>
+
+									</div>
+								</div>
+							</div>	
+
+						</div>
+
+
+					</div>
+					<div class="tab-pane fade in" id="tab2">
+						{{#if (user.memberid)}}{{else}}
+							<a href="#" id='add'>Get your membership today to enjoy the coupons!</a>
+						{{/if}}
+
+						{{#each allCoupons}}
+							<div class="col-lg-5 col-sm-5 coupon">
+								<div class="title">{{coupon_name}}</div>
+								<div class="detail">{{coupon_description}}</div>
+								<div class="date">Experiy Date: {{expiration_date}}</div>
+							</div>
+						{{/each}}
+
+					</div>
+
+					<div class="tab-pane fade in" id="tab3">
+						<div class="col-lg- col-sm-10">
+						<div class="panel-group" id="accordion">
+				            {{#each allOrders}}
+				            {{> showorder}}
+				            {{/each}}
+				        </div>  
+				    </div>
+					</div>
+				</div>
+			</div>
+</div>
+		</div>
+</template>
+
+<template name="showorder">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
+                    <b>Order Date: {{date_string}}</b>
+                </a>
+            </h4>
+        </div>
+        <div id="{{_id}}">
+            <div class="panel-body">
+                <div>
+                    <table class="table table-bordered table-stripped">
+                        <thead>
+                            <th>Dish Ordered</th>
+                            <th>Quantity</th>
+                        </thead>
+
+                        <tbody>
+                            {{#each i in dishes}} <!-- Display Each Dish -->
+                            <tr></tr>
+                            <td>{{i.dish_name}}</td>
+                            <td>{{i.quantity}}</td>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                    <div>Total Amount: {{payable_amount}}</div>
+                    <div>Payable Amount: {{payable_amount_discount}}</div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</template>

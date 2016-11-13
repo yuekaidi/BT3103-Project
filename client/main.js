@@ -9,7 +9,7 @@ import './login.js';
 import '/lib/routing.js';
 
 
-
+if (Meteor.isCordova || Meteor.isClient) {
 Template.navigation.events({
     'click .logout': function(event){
         event.preventDefault();
@@ -20,9 +20,21 @@ Template.navigation.events({
 });
 
 Template.navigation.helpers({
+
+    profile() {
+    	return Member.findOne({_id:Meteor.userId()}).firstname;
+    },
+    
 	isAdmin() {
         var member = Member.find({_id: Meteor.userId()}).fetch();
-        console.log(member[0].admin);
         return member[0].admin;
+    }
+});
+
+Template.home.helpers({
+    profile() {
+        return Member.findOne({_id:Meteor.userId()}).firstname;
     },
 });
+
+}

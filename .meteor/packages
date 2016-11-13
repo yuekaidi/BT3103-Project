@@ -25,3 +25,4 @@ iron:router
 accounts-ui
 themeteorchef:jquery-validation
 session
+email

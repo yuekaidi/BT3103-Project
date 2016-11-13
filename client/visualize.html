@@ -1,0 +1,36 @@
+
+
+<template name='admindashboard'>
+	<div class='container'>
+		<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail dash">
+			Total Users:
+			<hr>
+			<div class="dashtext">{{totalUsers}}</div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail dash">
+			Total Members:
+			<hr>
+			<div class="dashtext">{{totalMembers}} </div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail dash">
+			Total Orders:
+			<hr>
+			<div class="dashtext">{{totalOrders}} </div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-lg-3 col-md-3">
+		<div class="thumbnail dash">
+			Total Revenue:
+			<hr>
+			<div class="dashtext">S$ {{totalRevenue}} </div>
+		</div>
+	</div>
+	<div class="barchart col-sm-6 col-lg-6 col-md-6" id="chart" >{{createChart}}</div>
+	<div class="barchart col-sm-6 col-lg-6 col-md-6" id="chart2" >{{genderChart}}</div>
+	</div>
+</template>	

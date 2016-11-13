@@ -1,69 +1,63 @@
 <template name="dashboard">
     <div class="container">
-    <div class="with-background col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        {{#each user}}
-            <h2>{{firstname}}'s Profile</h2>
-            <!-- Some Personal Info -->
-            <div>
-                <h4>Name: {{firstname}} {{lastname}}</h4>
-                <h4>Gender: {{gender}}</h4>
-            </div>
-        {{/each}}
+        <div class="with-background col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <h2>{{user.firstname}}'s Dashboard</h2>
+        </div>
+
+        <div class="col-xs-12 col-sm-2 col-md-3"></div>
     </div>
 
-    <div class="col-xs-12 col-sm-2 col-md-3"></div>
+    <div class="container">
+
+     <div class="barchart" id="chart">{{createChart}}</div>
+
 </div>
     <div class="row">
-    <!-- Some Order Info -->
-    <div>
-        <h2>Past Orders</h2>
-        <div class="panel-group" id="accordion">
-            {{#each allOrders}}
-            {{> displayOrder}}
-            {{/each}}
-        </div>      
+        <div>
+            <div class="panel-group" id="accordion">
+                {{#each allOrders}}
+                {{> displayOrder}}
+                {{/each}}
+            </div>      
+        </div>
     </div>
-</div>
-
-    <!-- Chart -->
-    <div id="chart">{{createChart}}</div>
 </template>
-
 
 <template name="displayOrder">
     <div class="container with-background">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
-                    <b>Order Date: {{created_date}}</b>
-                </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
-            </h4>
-        </div>
-        <div id="{{_id}}" class="panel-collapse collapse">
-            <div class="panel-body">
-                <div>
-                    <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6">
-                        <thead>
-                            <th>Dish Ordered</th>
-                            <th>Quantity</th>
-                        </thead>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}">
+                        <b>Order Date: {{date_string}}</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="{{_id}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div>
+                        <table class="table table-bordered table-stripped col-xs-12 col-sm-6 col-md-6">
+                            <thead>
+                                <th>Dish Ordered</th>
+                                <th>Quantity</th>
+                            </thead>
 
-                        <tbody>
-                            {{#each i in dishes}} <!-- Display Each Dish -->
-                            <tr></tr>
-                            <td>{{i.dish_name}}</td>
-                            <td>{{i.quantity}}</td>
-                            {{/each}}
-                        </tbody>
-                    </table>
+                            <tbody>
+                                {{#each i in dishes}} <!-- Display Each Dish -->
+                                <tr></tr>
+                                <td>{{i.dish_name}}</td>
+                                <td>{{i.quantity}}</td>
+                                {{/each}}
+                            </tbody>
+                        </table>
 
-                    <div>Payable Amount: {{payable_amount}}</div>
+                        <div>Total Amount: {{payable_amount}}</div>
+                        <div>Payable Amount: {{payable_amount_discount}}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> 
-</div>
+        </div> 
+    </div>
 </template>
 
 
@@ -79,7 +73,7 @@
 </template>
 
 <template name = 'coupon'>
-    <div>
+    <div class='container'>
         <div>Coupon Lists</div>
         <div>
             <div>Create Coupon</div>
@@ -98,12 +92,12 @@
                 </thead>
                 <tbody>
                     {{#each allCoupons}}
-                        <tr>{{>displayCoupon}}</tr>
+                    <tr>{{>displayCoupon}}</tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
-    </div>
+    
     <!-- end of coupon lists -->
 
     <!-- start of users display -->
@@ -119,12 +113,14 @@
                     </thead>
                     <tbody>
                         {{#each customers}}
-                            <tr>{{> displayCustomer}}</tr>
+                        <tr>{{> displayCustomer}}</tr>
                         {{/each}}
                     </tbody>
                 </table>
             </div>
+
         </div>
+    </div>
     </div>
     <!-- end of users display -->
 </template>
@@ -137,9 +133,39 @@
 <template name = 'displayCustomer'>
     <td>{{lastname}}, {{firstname}}</td>
     <td>{{gender}}</td>
-    <td>{{coupon.coupon_name}} (Consumed?: {{#if coupon.consumed }}"Yes"{{else}}"No"{{/if}})</td>
+    <td>
+        {{#each i in coupon}}
+            <li>{{i.coupon_name}}</li>
+        {{/each}}
+
+        <a href = "#" id = 'showIssueCoupon'>Issue a Coupon</a>
+    </td>
+
+    <!-- Modal on Coupon Issuation -->
+    <div class="modal fade" id="issueCoupon">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Issue a Coupon</h4>
+                </div>
+                <form role = 'form'>
+                    <div class="modal-body">
+                        <input type="text" name = 'name' placeholder= "Coupon Name" required/>
+                        <input type="number" name = 'rate' placeholder= "Discount Rate" required/>
+                        <input type="text" name = 'description' placeholder= "Counpon Description" required/> 
+                        <input type = 'date' name = 'expire' required>
+                        <div>{{error}}</div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="issue" data-dismiss="modal">Issue</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>  
+
 </template>
-
-
-
-

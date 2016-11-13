@@ -8,65 +8,116 @@ import { Order, Member, Coupon, Menu } from '../api/database.js';
 
 import './login.html';
 
-Template.register.events({
-    // radio button
-    'click .male': function(){
-        $('.male').removeClass('not-active');
-        $('.female').addClass('not-active');
-    },
+Session.setDefault('error', '');
 
-    'click .female': function(){
-        $('.female').removeClass('not-active');
-        $('.male').addClass('not-active');
-    },
+if (Meteor.isCordova || Meteor.isClient) {
 
-    'submit form': function(event){
-        event.preventDefault();
-        var email = $('[name=email]').val();
-        var password = $('[name=password]').val();
-        var firstname = $('[name=firstname]').val();
-        var lastname = $('[name=lastname]').val();
-        var gender = $('[name=gender]').val();
-        var coupon = Coupon.findOne({coupon_name: "New Coming 5% Discount"});
+    Template.register.events({
+        // radio button
+        'click .male': function(){
+            $('.male').removeClass('not-active').addClass('gender');
+            $('.female').addClass('not-active').removeClass('gender');
+        },
 
-        // fetch by Meteor.users.find().fetch();
-        Accounts.createUser({
-            email: email,
-            password: password, 
-        }, function(error){
-            if(error){
-                alert("Error!");
-                console.log(error); // Output error if registration fails
-            } else {
-                Meteor.call('insert', Meteor.userId(), firstname, lastname, gender, coupon, false);
-                Meteor.call('update_coupon', coupon, false, 7);
-                Router.go("home"); // Redirect user if registration succeeds
+        'click .female': function(){
+            $('.female').removeClass('not-active').addClass('gender');
+            $('.male').addClass('not-active').removeClass('gender');
+        },
+
+        'submit form': function(event){
+            event.preventDefault();
+            var firstname = $('[name=firstname]').val();
+            var lastname = $('[name=lastname]').val();
+            var gender = $('input[name=gender]:checked').val();
+            var email = document.getElementById("email")
+            var reenteremail = document.getElementById("reenteremail");
+            function validateEmail(){
+                if (email.value != reenteremail.value) {
+                    reenteremail.setCustomValidity("Emails Don't Match");
+                } else {
+                    reenteremail.setCustomValidity('');
+                }
             }
-        });
-    }
-});
-
-Template.login.events({
-    'submit form': function(event){
-        event.preventDefault();
-        var email = $('[name=email]').val();
-        var password = $('[name=password]').val();
-        Meteor.loginWithPassword(email, password, function(err){
-            if(err){
-                console.log(err);
-                alert("Error!");
-                return false;
+            email.onchange = validateEmail;
+            reenteremail.onkeyup = validateEmail;
+            var password = document.getElementById("password")
+            var confirm_password = document.getElementById("confirm_password");
+            function validatePassword(){
+                if (password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Passwords Don't Match");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
             }
-            else{
-                Router.go('home');
-            }
-        });
-    }
-});
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+            Accounts.createUser({
+                email: email.value,
+                password: password.value
+            }, function(error){
+                if(error){
+                    console.log(error);
+                    if (error.error == 403) {
+                        Session.set('error', 'This email is already registered');
+                    } else if (error.error == "too-many-requests") {
+                        Session.set('error', "Slow down please > <, trying again later.");
+                    } else {
+                        Session.set('error', error.reason);
+                    }
+                } else {
+                    Session.set('error', '');
+                    Member.insert({
+                        _id: Meteor.userId(),
+                        email: email.value,
+                        firstname: firstname,
+                        lastname: lastname,
+                        gender: gender,
+                        memberid: null,
+                        joindate: null,
+                        coupon: [],
+                        admin: false,
+                        picture: "http://image.flaticon.com/icons/png/512/145/145863.png"
+                    });
+                    if (gender == "female") {
+                        Member.update({_id: Meteor.userId()}, {$set:{picture: "http://image.flaticon.com/icons/svg/145/145852.svg"}});
+                    }
+                    Router.go("profile"); // Redirect user if registration succeeds
+                }
+            });
+        }
+    });
 
-Template.login.onRendered(function(){
-    $('.login').validate();
-});
+    Template.register.helpers({
+        error() {
+            return Session.get('error');
+        }
+    });
 
+    Template.login.events({
+        'submit form': function(event){
+            event.preventDefault();
+            var email = $('[name=email]').val();
+            var password = $('[name=password]').val();
+            Meteor.loginWithPassword(email, password, function(error){
+                if(error){
+                    Session.set('error', error.reason);
+                }
+                else{
+                    Session.set('error', '');
+                    Router.go('profile');
+                }
+            });
+        }
+    });
 
+    Template.login.onRendered(function(){
+        $('.login').validate();
+    });
 
+    Template.login.helpers({
+        error() {
+            return Session.get('error');
+        }
+    });
+
+};

@@ -5,3 +5,4 @@ export const Order = new Mongo.Collection('order');
 export const Member = new Mongo.Collection('member');
 export const Coupon = new Mongo.Collection('coupon');
 export const Menu = new Mongo.Collection('menu');
+export const Authcode = new Mongo.Collection('authcode');

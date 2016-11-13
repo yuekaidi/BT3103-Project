@@ -10,19 +10,17 @@ import './menu.html';
 
 Session.setDefault("dishname", []);
 Session.setDefault("amt", 0);
+Session.setDefault("discountAmount", Session.get('amt'));
 Session.setDefault("coupon", 1);
+
 var dishname = Session.get("dishname").slice();
-Session.setDefault("createOrderId", "");
 
-// db.menu.insert({ "_id" : 1001, "dish_name" : "Fried Rice", "dish_category" : "Main", "dish_price" : 9.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Xin-Wang-0006.jpg" })
-// db.menu.insert({ "_id" : 1002, "dish_name" : "Salmon Spaghetti", "dish_category" : "Main", "dish_price" : 12.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/pasta1.jpg" })
-// db.menu.insert({ "_id" : 1003, "dish_name" : "Papaya Soup Pork Chop", "dish_category" : "Main", "dish_price" : 8.5, "dish_image" : "http://xinwang.com.sg/wp-content/uploads/2014/07/Papaya-Soup_Pork-Chop.jpg" })
-
+if (Meteor.isCordova || Meteor.isClient) {
 
 Template.menu.helpers({
+
     isAdmin() {
         var member = Member.find({_id: Meteor.userId()}).fetch();
-        console.log(member[0].admin);
         return member[0].admin;
     },
 
@@ -38,108 +36,82 @@ Template.menu.helpers({
         return Session.get("amt");
     },
 
-    coupon() {
-        var coupon75 = Member.findOne({_id: Meteor.userId()}).coupon75;
-        var coupon100 = Member.findOne({_id: Meteor.userId()}).coupon100;
-        if (coupon100) { 
-            Session.set('coupon', 0.1);
-            return "10% off";
-        }
-        if (coupon75) {
-            Session.set('coupon', 0.075);
-            return "7.5% off";
-        }        
-    },
-
-    coupon2() {
-        return "5% off";
+    totalPriceWithDiscount() {
+        return Session.get('discountAmount');
     }
 });
 
 
 Template.menu.events({
-    'click #coupon': function () {
-        var status = $('#coupon').prop('checked');
-        if (status) {
-            Session.set('amt', (Session.get('amt') * (1-Session.get('coupon'))).toFixed(2));
-        }
-        else {
-            Session.set('amt', (Session.get("oriamt")));
-        }
-    },
 
-    'click #coupon2': function() {
-        var status = $('#coupon2').prop('checked');
-        if (status) {
-            Session.set('amt', (Session.get('amt') * (0.95)).toFixed(2));
-        }
-        else {
-            Session.set('amt', (Session.get("oriamt")));
-        }
-    },
-
-    //green
-    'click #form1': function(template) {
+    // manager create dish
+    'click #form1': function(event, template) {
         event.preventDefault();
-        console.log("clicked");
-        var name = $('[name=name]').val();
-        var price = $('[name=price]').val();
-        var cat = $('[name=cat]').val();
-        var url = $('[name=url]').val();
+
+        var name = template.$('[name=name]').val();
+        var price = template.$('[name=price]').val();
+        var cat = template.$('[name=cat]').val();
+        var url = template.$('[name=url]').val();
 
         Meteor.call('insert_dish', name, price, cat, url);
         //reset
-        $('[name=name]').val("");
-        $('[name=price]').val("");
-        $('[name=cat]').val("");
-        $('[name=url]').val("");
+        template.$('[name=name]').val("");
+        template.$('[name=price]').val("");
+        template.$('[name=cat]').val("");
+        template.$('[name=url]').val("");
     },
 
-    'click #form2': function () {
-
+    //customers make the final order
+    'click #form2': function (event, template) {
         event.preventDefault();
-        console.log("click on order button");
 
-        // insert function will return an ID
-        var temp = Order.insert({
-            coupon_id: 1001,
-            member_id: Meteor.userId(),
-            created_date: new Date(),
-            payable_amount: Session.get("amt"),
-            dishes: dishname,
-        });
+        if(Session.get('amt') == 0 ){ // prevent empty order 
+            alert('Error: empty in basket');
+            return 0;
+        } else {
+            var now = new Date();
+            Meteor.call('create_order', 1001, Meteor.userId(), now, now.toISOString().slice(0, 10) + "  " + now.toISOString().slice(11, 19), Session.get('amt'), Session.get('discountAmount'), dishname);
+            //reset 
+            Session.set("amt", 0);
+            Session.set('discountAmount', Session.get('amt'));
+            Session.set("dishname", []);
+            dishname = [];
 
-        Session.set("createOrderId", temp);
-        Session.set("amt", 0);
-        Session.set("dishname", []);
-        dishname = [];
+            //remove used coupn in this order
+            var used_coupon_value = template.find('input:radio[name=rate]:checked').value;
+            var all_coupons = Member.find({_id: Meteor.userId()}).fetch()[0].coupon;
+            var temp = 0;
+            for(i = 0; i < all_coupons.length; i ++) {
+                if (used_coupon_value == i.coupon_discount)
+                    temp = i;
+                break;
+            }
+            var new_coupon = all_coupons[temp];
+            Meteor.call('remove_used_coupon', Meteor.userId(), new_coupon);
 
-        //console.log("inserted");
-        Router.go('order');
-
+            Router.go('dashboard');
+        }
     },
 
 });
 
 Template.displayDish.events({
 
-    //green
     'click .add-order': function(event, template) {
-
+        event.preventDefault();
         var id = this._id;
         var quantity = parseInt(template.$('[name=quantity]').val());  
 
         if (quantity > 0) {
             Session.set("amt", Session.get('amt') + quantity * this.dish_price);
             Session.set("oriamt", Session.get("amt"));
-            //console.log("Amt: ", Session.get("amt"));
+            Session.set('discountAmount', Session.get('amt'));
 
-            dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_price: this.dish_price, quantity: quantity});
+            dishname.push({dish_id: this._id, dish_name: this.dish_name, dish_category: this.dish_category, dish_price: this.dish_price, quantity: quantity});
             Session.set("dishname", dishname);
         }
     },
 
-    //gree
     'click .quantity-right-plus': function(event, template) {
         // Stop acting like a button
         event.preventDefault();
@@ -149,18 +121,34 @@ Template.displayDish.events({
         template.$('.add-order').removeClass('disabled');
     },
 
-    //green
     'click .quantity-left-minus': function(event, template) {
-        // Stop acting like a button
         event.preventDefault();
-        //console.log("clicked");
-        template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
+
         if(parseInt(template.$('[name=quantity]').val()) == 0){
             template.$('.quantity-left-minus').addClass('disabled');
             template.$('.add-order').addClass('disabled');
+        } else {
+            template.$('[name=quantity]').val(parseInt(template.$('[name=quantity]').val()) - 1);
         }
     },
 
+});
+
+Template.displayAvailabeCoupon.helpers({
+
+    couponName() {
+        var coupon = Member.find({_id: Meteor.userId()}).fetch()[0].coupon;
+        return coupon;
+    }
+});
+
+Template.displayAvailabeCoupon.events({
+
+    'click #rate': function(event, template) {
+        console.log('clicked');
+        var rate = template.find('input:radio[name=rate]:checked').value; //
+        Session.set('discountAmount', (Session.get('amt')*rate).toFixed(2));
+    },
 });
 
 Template.displayDishAdmin.events({
@@ -178,7 +166,6 @@ Template.displayDishAdmin.events({
 
     'click .form4': function(event, template) {
         event.preventDefault();
-        console.log("clicked");
 
         var name = template.$('[name=name]').val();
         var price = template.$('[name=price]').val();
@@ -199,10 +186,9 @@ Template.order.helpers({
     allOrders() {
         return Order.find({_id: Session.get("createOrderId")});
     },
-
-
 });
 
+};
 
 
 
