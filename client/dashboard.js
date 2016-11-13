@@ -38,20 +38,16 @@ Template.dashboard.helpers({
                 title: {
                     text: "Order Summary",
                 },
-
                 yAxis: {
                     title: {
                         text: "Amount ($)",
                     },
                 },
-
                 xAxis: {
                     categories: orderDate,
                     crosshair: true,
                 },
-
                 colors: ['#358E96'],
-
                 series: [{
                     type: 'column',
                     name: 'Payable amount',
@@ -73,7 +69,7 @@ Template.coupon.helpers({
 
     customers() {
         return Member.find({admin: false}); //return only customers
-    }
+    },
 });
 
 Template.coupon.events({
@@ -120,7 +116,6 @@ Template.displayCustomer.events({
         template.$('[name=expire]').val("");
     }
 });
-
 }
 
 
